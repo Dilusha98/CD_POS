@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="csrf-token" content="{{ csrf_token() }}">
-  <title>{{ $title }}</title>
+  <title>POS | {{ $title }}</title>
 
 
     @foreach ($css as $path)
@@ -869,7 +869,7 @@
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
+    {{-- <!-- Content Header (Page header) -->
     <div class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
@@ -885,11 +885,11 @@
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
     </div>
-    <!-- /.content-header -->
+    <!-- /.content-header --> --}}
 
     <!-- Main content -->
     <section class="content">
-        @yield('content')
+        @include($view)
     </section>
     <!-- /.content -->
   </div>
