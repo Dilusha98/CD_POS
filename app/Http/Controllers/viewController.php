@@ -8,7 +8,7 @@ use App\Models\User;
 use App\Models\raffel;
 use Auth;
 
-class viewController extends Controller
+class viewController extends DataController
 {
 
     /*
@@ -58,11 +58,13 @@ class viewController extends Controller
         $data =array(
             'title'                 => 'Dashboard',
             'view'                  => 'home',
+            'teat'                  => $this->testFun(),
             // 'css'                   => array(config('site-specific.morris-css')), //example to custom css
             // 'script'                => array(config('site-specific.morris-min-js')), //example to custom js
             // 'dashboard_data'        => $this->dashboardData(Auth::User()->branch), //example to custome function
         );
 
+        dd($data);
         return $this->default($data);
     }
 
