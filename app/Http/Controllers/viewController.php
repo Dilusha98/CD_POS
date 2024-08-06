@@ -64,7 +64,7 @@ class viewController extends DataController
             // 'dashboard_data'        => $this->dashboardData(Auth::User()->branch), //example to custome function
         );
 
-        dd($data);
+        //dd($data);
         return $this->default($data);
     }
 
