@@ -14,7 +14,12 @@ class UserPermissionModel extends Model
     protected $primaryKey = 'upi';
     public $timestamps = false;
 
-
+    /*
+    |--------------------------------------------------------------------------
+    | Get user permissions
+    |--------------------------------------------------------------------------
+    |
+    */
     public static function getUserPermissions()
     {
         return UserPermissionModel::selectRaw('upi as uPerissnId, tle as title, dpt as displayTxt, typ as type')
