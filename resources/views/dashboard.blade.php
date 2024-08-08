@@ -35,6 +35,7 @@
     @foreach ($script as $path)
         <script src="{{ $path }}"></script>
     @endforeach
+    
 
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -196,15 +197,7 @@
 
     <!-- Sidebar -->
     <div class="sidebar">
-      <!-- Sidebar user panel (optional) -->
-      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-        <div class="image">
-          <img src="dist/img/logo.png" class="img-circle elevation-2" alt="User Image">
-        </div>
-        <div class="info">
-          <a href="#" class="d-block">Dashboard</a>
-        </div>
-      </div>
+      
 
       <!-- SidebarSearch Form -->
       {{-- <div class="form-inline">
@@ -229,35 +222,42 @@
               <p>Dashboard</p>
             </a>
           </li>
-          <li class="nav-item menu-open">
-            {{-- <a href="/dashboard" class="nav-link active">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
+
+          {{-- start user role section --}}
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-user"></i>
               <p>
-                Dashboard
+                User Role
                 <i class="right fas fa-angle-left"></i>
               </p>
-            </a> --}}
-            {{-- <ul class="nav nav-treeview">
+            </a>
+
+            <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="./index.html" class="nav-link active">
+                <a href="/CreateUserRole" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Dashboard v1</p>
+                  <p>create user role</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="./index2.html" class="nav-link">
+                <a href="#" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Dashboard v2</p>
+                  <p>assign permission</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="./index3.html" class="nav-link">
+                <a href="#" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Dashboard v3</p>
+                  <p>edit user role</p>
                 </a>
               </li>
-            </ul> --}}
+            </ul> 
+
           </li>
+          {{-- end user role section --}}
+
+
           {{-- <li class="nav-item">
             <a href="pages/widgets.html" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
@@ -895,10 +895,9 @@
   </div>
   <!-- /.content-wrapper -->
   <footer class="main-footer">
-    <strong>Copyright &copy; 2024 <a href="">POS</a>.</strong>
+    <strong>Copyright &copy; 2024 <a href="">CD_POS</a>.</strong>
     All rights reserved.
     <div class="float-right d-none d-sm-inline-block">
-      <b>POS</b>
     </div>
   </footer>
 
@@ -937,8 +936,12 @@
 <script src="dist/js/adminlte.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="dist/js/demo.js"></script>
-<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+<!-- jQuery -->
+<script src="plugins/jquery/jquery.min.js"></script>
 
-  @yield('script')
+@yield('script')
+
+ 
+
 </body>
 </html>

@@ -21,26 +21,23 @@ class viewController extends DataController
     {
 
         // Defalut css
-        $css =array(
-
-        );
+        $css = array();
 
         //Default script
-        $script =array(
+        $script = array(
             config('site-specific.jquery-min-js'),
             config('site-specific.jquery-ui-min-js'),
         );
 
-        if(isset($data['css'])){
-            $data['css'] = array_merge($css,$data['css']);
-        }else{
+        if (isset($data['css'])) {
+            $data['css'] = array_merge($css, $data['css']);
+        } else {
             $data['css'] = $css;
         }
-        if(isset($data['script'])){
-            $data['script'] = array_merge($script,$data['script']);
-        }else{
+        if (isset($data['script'])) {
+            $data['script'] = array_merge($script, $data['script']);
+        } else {
             $data['script'] = $script;
-
         }
 
         return View::make('dashboard', $data);
@@ -53,19 +50,37 @@ class viewController extends DataController
     |--------------------------------------------------------------------------
     |
     */
-    public function index(){
+    public function index()
+    {
 
-        $data =array(
+        $data = array(
             'title'                 => 'Dashboard',
             'view'                  => 'home',
-            'teat'                  => $this->testFun(),
             // 'css'                   => array(config('site-specific.morris-css')), //example to custom css
             // 'script'                => array(config('site-specific.morris-min-js')), //example to custom js
             // 'dashboard_data'        => $this->dashboardData(Auth::User()->branch), //example to custome function
         );
 
-        //dd($data);
         return $this->default($data);
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    | create user role
+    |--------------------------------------------------------------------------
+    |
+    */
+    public function crateUserRole()
+    {
+
+        $data = array(
+            'title'                 => 'Create User Role',
+            'view'                  => 'user_role.create_user_role',
+            'getUserPermission'     => $this->getUserPermission(),
+            // 'css'                   => array(config('site-specific.morris-css')), //example to custom css
+            // 'script'                => array(config('site-specific.morris-min-js')), //example to custom js
+            // 'dashboard_data'        => $this->dashboardData(Auth::User()->branch), //example to custome function
+        );
+        return $this->default($data);
+    }
 }
