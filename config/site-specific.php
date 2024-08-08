@@ -28,9 +28,11 @@ return [
     | Site Default styles
     |--------------------------------------------------------------------------
     */
+    'datatable-css'                 => "https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css",
+    'datatable-btn-css'             => "https://cdn.datatables.net/buttons/2.4.1/css/buttons.dataTables.min.css",
+    'datatable-bootstrap-css'       => "https://cdn.datatables.net/buttons/2.4.1/css/buttons.bootstrap5.min.css",
 
-
-
+    // custom css
 
 
     /*
@@ -39,19 +41,19 @@ return [
     |--------------------------------------------------------------------------
     */
     'jquery-min-js'                 => "plugins/jquery/jquery.min.js",
-
-    'jquery-ui-min-js'                 => "plugins/jquery-ui/jquery-ui.min.js",
+    'jquery-ui-min-js'              => "plugins/jquery-ui/jquery-ui.min.js",
+    'datatable-js'                  => "https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js",
+    'datatable-button-js'           => "https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js",
+    'datatable-html5-js'            => "https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js",
+    'datatable-print-js'            => "https://cdn.datatables.net/buttons/2.4.1/js/buttons.print.min.js",
+    'datatable-jszip-js'            => "https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js",
+    'datatable-pdfmake-js'          => "https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js",
+    'datatable-pdffont-js'          => "https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js",
+    'datatable-colVis-js'           => "https://cdn.datatables.net/buttons/2.4.1/js/buttons.colVis.min.js",
+    'datatable-btn-bootstrap-js'    => "https://cdn.datatables.net/buttons/2.4.1/js/buttons.bootstrap5.min.js",
 
     // Custom js example
-    // 'notification-init-js'              =>"/custom_assets/js/notification-init.js?v=".$version,
-
-
-
-
-
-
-
-
+    // 'brand-js'                       =>"/assets/js/brands.js?v=".$version,
 
 
 

@@ -22,13 +22,24 @@ class viewController extends DataController
 
         // Defalut css
         $css =array(
-
+            config('site-specific.datatable-css'),
+            config('site-specific.datatable-btn-css'),
+            config('site-specific.datatable-bootstrap-css'),
         );
 
         //Default script
         $script =array(
             config('site-specific.jquery-min-js'),
             config('site-specific.jquery-ui-min-js'),
+            config('site-specific.datatable-js'),
+            config('site-specific.datatable-button-js'),
+            config('site-specific.datatable-html5-js'),
+            config('site-specific.datatable-print-js'),
+            config('site-specific.datatable-jszip-js'),
+            config('site-specific.datatable-pdfmake-js'),
+            config('site-specific.datatable-pdffont-js'),
+            config('site-specific.datatable-colVis-js'),
+            config('site-specific.datatable-btn-bootstrap-js'),
         );
 
         if(isset($data['css'])){
@@ -64,7 +75,23 @@ class viewController extends DataController
             // 'dashboard_data'        => $this->dashboardData(Auth::User()->branch), //example to custome function
         );
 
-        //dd($data);
+        return $this->default($data);
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Public Function Brand
+    |--------------------------------------------------------------------------
+    |
+    */
+    public function brand(){
+
+        $data =array(
+            'title'                 => 'Brand',
+            'view'                  => 'product/brand',
+        );
+
         return $this->default($data);
     }
 
