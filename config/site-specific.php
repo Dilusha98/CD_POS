@@ -31,6 +31,9 @@ return [
     'datatable-css'                 => "https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css",
     'datatable-btn-css'             => "https://cdn.datatables.net/buttons/2.4.1/css/buttons.dataTables.min.css",
     'datatable-bootstrap-css'       => "https://cdn.datatables.net/buttons/2.4.1/css/buttons.bootstrap5.min.css",
+    'dropify-css'                   => "https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/css/dropify.css",
+    'sweetAlert-css'                => "https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.12.4/sweetalert2.css",
+    'toastr-css'                    => "https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css",
 
     // custom css
 
@@ -51,9 +54,17 @@ return [
     'datatable-pdffont-js'          => "https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js",
     'datatable-colVis-js'           => "https://cdn.datatables.net/buttons/2.4.1/js/buttons.colVis.min.js",
     'datatable-btn-bootstrap-js'    => "https://cdn.datatables.net/buttons/2.4.1/js/buttons.bootstrap5.min.js",
+    'jquery-validation-js'          => "https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.21.0/jquery.validate.min.js",
+    'dropify-js'                    => "https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/js/dropify.min.js",
+    'sweetAlert-js'                 => "https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.12.4/sweetalert2.min.js",
+    'toastr-js'                     => "https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js",
 
     // Custom js example
     'create-user-role-js'                       =>"/assets/js/brands.js?v=".$version,
+    'brand-js'                       =>"/customjs/brand.js?v=".$version,
+
+
+
 
 
 

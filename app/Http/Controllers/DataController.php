@@ -11,6 +11,7 @@ use Illuminate\Database\QueryException;
 
 //models
 use App\Models\UserPermissionModel;
+use App\Models\Brand;
 
 class DataController extends Controller
 {
@@ -29,5 +30,18 @@ class DataController extends Controller
         } catch (Exception $e) {
             return $e;
         }
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | get Brands
+    |--------------------------------------------------------------------------
+    |
+    */
+    public function getBrands()
+    {
+        $brands = Brand::all();
+        return $brands;
     }
 }
