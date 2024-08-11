@@ -27,6 +27,13 @@ class AuthenticatedSessionController extends Controller
     {
         $request->authenticate();
 
+        $user = Auth::user();
+        // $customData = DB::table('your_table_name')
+        //                 ->where('user_id', $user->id)
+        //                 ->first();
+
+        session(['custom_data_key' => 'test']);
+
         $request->session()->regenerate();
 
         return redirect()->intended(RouteServiceProvider::HOME);

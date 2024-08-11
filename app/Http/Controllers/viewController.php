@@ -25,6 +25,9 @@ class viewController extends DataController
             config('site-specific.datatable-css'),
             config('site-specific.datatable-btn-css'),
             config('site-specific.datatable-bootstrap-css'),
+            config('site-specific.dropify-css'),
+            config('site-specific.sweetAlert-css'),
+            config('site-specific.toastr-css'),
         );
 
         //Default script
@@ -40,6 +43,10 @@ class viewController extends DataController
             config('site-specific.datatable-pdffont-js'),
             config('site-specific.datatable-colVis-js'),
             config('site-specific.datatable-btn-bootstrap-js'),
+            config('site-specific.jquery-validation-js'),
+            config('site-specific.dropify-js'),
+            config('site-specific.sweetAlert-js'),
+            config('site-specific.toastr-js'),
         );
 
         if(isset($data['css'])){
@@ -69,7 +76,6 @@ class viewController extends DataController
         $data =array(
             'title'                 => 'Dashboard',
             'view'                  => 'home',
-            'teat'                  => $this->testFun(),
             // 'css'                   => array(config('site-specific.morris-css')), //example to custom css
             // 'script'                => array(config('site-specific.morris-min-js')), //example to custom js
             // 'dashboard_data'        => $this->dashboardData(Auth::User()->branch), //example to custome function
@@ -90,6 +96,8 @@ class viewController extends DataController
         $data =array(
             'title'                 => 'Brand',
             'view'                  => 'product/brand',
+            'script'                => array(config('site-specific.brand-js')),
+            'brands'                => $this->getBrands(),
         );
 
         return $this->default($data);

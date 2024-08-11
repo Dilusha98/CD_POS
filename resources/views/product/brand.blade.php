@@ -29,26 +29,36 @@
                 </div>
                 <div class="row mt-4">
                     <div class="col-md-12">
-                    <table id="example1" class="table table-bordered table-striped">
+                    <table id="BrandListTbl" class="table table-bordered table-striped">
                         <thead>
                             <tr>
-                            <th>Rendering engine</th>
-                            <th>Browser</th>
-                            <th>Platform(s)</th>
-                            <th>Engine version</th>
-                            <th>CSS grade</th>
+                            <th>Name</th>
+                            <th>Status</th>
+                            <th>Created By</th>
+                            <th>Created At</th>
+                            <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                            <td>Trident</td>
-                            <td>Internet
-                                Explorer 4.0
-                            </td>
-                            <td>Win 95+</td>
-                            <td> 4</td>
-                            <td>X</td>
-                            </tr>
+                            @foreach ($brands as $brand)
+                                <tr>
+                                    <td>{{ $brand->name }}</td>
+                                    <td>{{ $brand->status }}</td>
+                                    <td>{{ $brand->created_by }}</td>
+                                    <td>{{ $brand->created_at }}</td>
+                                    <td>
+                                        <div class="dropdown">
+                                            <button class="btn btn-secondary dropdown-toggle" type="button" id="actionDropdown{{ $brand->id }}" data-bs-toggle="dropdown" aria-expanded="false">
+                                                Action
+                                            </button>
+                                            <ul class="dropdown-menu" aria-labelledby="actionDropdown{{ $brand->id }}">
+                                                <li><a class="dropdown-item" href="#" onclick="editBrand({{ $brand->id }})">Edit</a></li>
+                                                <li><a class="dropdown-item" href="#" onclick="deleteBrand({{ $brand->id }})">Delete</a></li>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                     </div>
@@ -62,23 +72,3 @@
 
 <!-- brand add modal -->
 @include('product.modals.brandAddModal')
-
-<script>
-    $(document).ready(function() {
-        $('#example1').DataTable({
-            dom: 'Bfrtip',
-            buttons: [
-                'excelHtml5',
-                'pdfHtml5',
-                'print'
-            ],
-            responsive: true,
-            lengthChange: false,
-            autoWidth: false,
-            paging: true,
-            searching: true,
-            ordering: true,
-            info: true
-        });
-    });
-</script>

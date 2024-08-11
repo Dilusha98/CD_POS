@@ -40,13 +40,16 @@ body {
 .form-control {
     width: calc(100% - 24px);
     padding: 10px;
-    margin-bottom: 20px;
     border: 2px solid #ccc; /* light gray border */
     border-radius: 5px;
     transition: border-color 0.3s;
     background-color: #fff; /* white background */
     font-weight: bold; /* thicker font */
     color: #555; /* gray font color */
+}
+
+.inputDiv{
+    margin-bottom: 20px;
 }
 
 .form-control:focus {
@@ -82,6 +85,10 @@ body {
     height: auto;
 }
 
+.text-danger{
+    color: #DC3545;
+}
+
 
         </style>
 
@@ -104,15 +111,16 @@ body {
             <form method="POST" action="{{ route('login') }}">
                 @csrf
                 <!-- Email Address -->
-                <div class="mb-3">
-                    <label for="email" class="form-label">User Name</label>
-                    <input id="email" class="form-control" type="text" name="email" value="{{ old('email') }}" required autofocus autocomplete="email">
+                <div class="mb-3 inputDiv">
+                    @if ($errors->has('incorrect'))
+                        <span class="text-danger form-label">{{ $errors->first('incorrect') }}</span>
+                    @endif
+                    <input id="email" class="form-control" type="text" name="email" value="{{ old('email') }}" required autofocus autocomplete="email" placeholder="User Name">
                 </div>
 
                 <!-- Password -->
-                <div class="mb-3">
-                    <label for="password" class="form-label">Password</label>
-                    <input id="password" class="form-control" type="password" name="password" required autocomplete="current-password">
+                <div class="mb-3 inputDiv">
+                    <input id="password" class="form-control" type="password" name="password" required autocomplete="current-password" placeholder="Password">
                 </div>
 
                 <!-- Remember Me -->

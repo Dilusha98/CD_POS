@@ -2,7 +2,8 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\viewController;
-use App\Http\Controllers\actionController;
+use App\Http\Controllers\AjaxController;
+use App\Http\Controllers\ActionController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -43,8 +44,7 @@ Route::middleware('auth')->group(function () {
     |--------------------------------------------------------------------------
     |
     */
-
-
+    Route::post('/add-brand',[AjaxController::class,'addNewBrand'])->name('add-brand');
 
     /*
     |--------------------------------------------------------------------------
