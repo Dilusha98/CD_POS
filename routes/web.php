@@ -34,6 +34,8 @@ Route::middleware('auth')->group(function () {
     */
     Route::get('/dashboard',[viewController::class,'index'])->name('dashboard');
     Route::get('/brand',[viewController::class,'brand'])->name('brand');
+    //user role view
+    Route::get('/UserRole',[viewController::class,'userRole'])->name('user_role');
 
 
 
@@ -52,6 +54,8 @@ Route::middleware('auth')->group(function () {
     |--------------------------------------------------------------------------
     |
     */
+    //user role action
+    Route::post('CreateUserRole', [actionController::class, 'createUserRole'])->name('create_user_role');
 });
 
 require __DIR__.'/auth.php';

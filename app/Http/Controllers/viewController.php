@@ -21,14 +21,14 @@ class viewController extends DataController
     {
 
         // Defalut css
-        $css =array(
+        $css = array(
             config('site-specific.datatable-css'),
             config('site-specific.datatable-btn-css'),
             config('site-specific.datatable-bootstrap-css'),
         );
 
         //Default script
-        $script =array(
+        $script = array(
             config('site-specific.jquery-min-js'),
             config('site-specific.jquery-ui-min-js'),
             config('site-specific.datatable-js'),
@@ -42,16 +42,15 @@ class viewController extends DataController
             config('site-specific.datatable-btn-bootstrap-js'),
         );
 
-        if(isset($data['css'])){
-            $data['css'] = array_merge($css,$data['css']);
-        }else{
+        if (isset($data['css'])) {
+            $data['css'] = array_merge($css, $data['css']);
+        } else {
             $data['css'] = $css;
         }
-        if(isset($data['script'])){
-            $data['script'] = array_merge($script,$data['script']);
-        }else{
+        if (isset($data['script'])) {
+            $data['script'] = array_merge($script, $data['script']);
+        } else {
             $data['script'] = $script;
-
         }
 
         return View::make('dashboard', $data);
@@ -64,12 +63,13 @@ class viewController extends DataController
     |--------------------------------------------------------------------------
     |
     */
-    public function index(){
+    public function index()
+    {
 
-        $data =array(
+        $data = array(
             'title'                 => 'Dashboard',
             'view'                  => 'home',
-            'teat'                  => $this->testFun(),
+            //'teat'                  => $this->testFun(),
             // 'css'                   => array(config('site-specific.morris-css')), //example to custom css
             // 'script'                => array(config('site-specific.morris-min-js')), //example to custom js
             // 'dashboard_data'        => $this->dashboardData(Auth::User()->branch), //example to custome function
@@ -85,14 +85,32 @@ class viewController extends DataController
     |--------------------------------------------------------------------------
     |
     */
-    public function brand(){
+    public function brand()
+    {
 
-        $data =array(
+        $data = array(
             'title'                 => 'Brand',
             'view'                  => 'product/brand',
         );
 
         return $this->default($data);
     }
+    /*
+    |--------------------------------------------------------------------------
+    | Public Function User Role
+    |--------------------------------------------------------------------------
+    |
+    */
+    public function userRole()
+    {
 
+        $data = array(
+            'title'                 => 'User Role',
+            'view'                  => 'user_role/create_user_role',
+            'groupedData'           => $this->getUserPermission(),
+        );
+
+        //dd($data);
+        return $this->default($data);
+    }
 }

@@ -53,7 +53,7 @@ return [
     'datatable-btn-bootstrap-js'    => "https://cdn.datatables.net/buttons/2.4.1/js/buttons.bootstrap5.min.js",
 
     // Custom js example
-    // 'brand-js'                       =>"/assets/js/brands.js?v=".$version,
+    'create-user-role-js'                       =>"/assets/js/brands.js?v=".$version,
 
 
 
