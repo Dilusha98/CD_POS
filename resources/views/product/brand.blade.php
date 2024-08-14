@@ -43,18 +43,25 @@
                             @foreach ($brands as $brand)
                                 <tr>
                                     <td>{{ $brand->name }}</td>
-                                    <td>{{ $brand->status }}</td>
-                                    <td>{{ $brand->created_by }}</td>
-                                    <td>{{ $brand->created_at }}</td>
                                     <td>
-                                        <div class="dropdown">
-                                            <button class="btn btn-secondary dropdown-toggle" type="button" id="actionDropdown{{ $brand->id }}" data-bs-toggle="dropdown" aria-expanded="false">
-                                                Action
+                                        @if ($brand->status == 1)
+                                            <span class="badge badge-success">Active</span>
+                                        @else
+                                            <span class="badge badge-warning">Inactive</span>
+                                        @endif
+                                    </td>
+                                    <td>{{ $brand->createdBy->name}}</td>
+                                    <td>{{ $brand->created_at }}</td>
+                                    <td class="text-center">
+                                        <div class="dropdown open d-inline-block">
+                                            <button class="btn btn-primary btn-xs dropdown-toggle" type="button" id="actionDropdown{{ $brand->id }}" data-toggle="dropdown" >
+                                                <i class="fas fa-edit"></i>
                                             </button>
-                                            <ul class="dropdown-menu" aria-labelledby="actionDropdown{{ $brand->id }}">
-                                                <li><a class="dropdown-item" href="#" onclick="editBrand({{ $brand->id }})">Edit</a></li>
-                                                <li><a class="dropdown-item" href="#" onclick="deleteBrand({{ $brand->id }})">Delete</a></li>
-                                            </ul>
+                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                <a class="dropdown-item" onclick="editBrand({{ $brand->id }})" >Edit</a>
+                                                <br>
+                                                <a class="dropdown-item" onclick="deleteBrand({{ $brand->id }})">Delete</a>
+                                            </div>
                                         </div>
                                     </td>
                                 </tr>

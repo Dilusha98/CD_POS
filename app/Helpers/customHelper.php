@@ -1,9 +1,20 @@
 <?php
 
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\DB;
 
 use Intervention\Image\ImageManager as ImageManager;
 use Intervention\Image\Drivers\GD\Driver as Driver;
+
+use App\Models\SavePermissionModel;
+
+
+function isPermissions($permission){
+    $permission_id = DB::table('user_permissions')->where('tle', $permission)->value('upi');
+    $UserPermissions = SavePermissionModel::where('user_role',Auth::user()->user_role)->where('permission',$permission_id)->exists();
+    return $UserPermissions;
+}
+
 
 function saveImage($file)
 {

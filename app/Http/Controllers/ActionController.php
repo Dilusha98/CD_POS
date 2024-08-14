@@ -18,5 +18,5 @@ use App\Models\SavePermissionModel;
 
 
 class ActionController extends Controller
-{  
+{
 }
