@@ -64,6 +64,7 @@ Route::middleware(['auth'])->group(function () {
     |
     */
     Route::get('/get-brand-data',[AjaxController::class,'brandList'])->name('get_brand_list');
+    // Route::get('/get-brand-data',[AjaxController::class,'brandList'])->name('get_brand_list');
 
 });
 
