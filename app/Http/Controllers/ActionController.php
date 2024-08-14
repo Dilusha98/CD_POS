@@ -54,14 +54,11 @@ class ActionController extends Controller
             }
 
             DB::commit();
+            return redirect()->back()->with('success', 'Data has been saved successfully!');
 
-            toastr()->success('Data has been saved successfully!');
-            return redirect()->back();
         } catch (Exception $e) {
             DB::rollBack();
-
-            toastr()->error('Data has been saved failed!' . $e->getMessage());
-            return redirect()->back();
+            return redirect()->back()->with('error', 'Data has been saved failed!' . $e->getMessage());
         }
     }
 }

@@ -23,6 +23,7 @@ $(document).ready(function() {
             'pdfHtml5',
             'print'
         ],
+        pageLength:10,
         responsive: true,
         lengthChange: false,
         autoWidth: false,
@@ -83,10 +84,11 @@ $(document).ready(function() {
                     processData: false,
                     contentType: false,
                     success: function(response) {
+                        loadBrandData();
                         Swal.fire({
                             icon: 'success',
                             title: 'Brand Added',
-                            text: 'The brand has been successfully added!',
+                            text: response.message,
                             confirmButtonText: 'OK'
                         });
                         $('#brandAddModal').modal('hide');
@@ -114,3 +116,54 @@ $(document).ready(function() {
     }
 
 });
+
+
+function loadBrandData() {
+
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    $.ajax({
+        url: '/get-brand-data',
+        method: 'GET',
+        success: function(response) {
+
+            $('#BrandListTbl tbody').empty();
+            $.each(response.brands, function(index, brand) {
+
+                var statusBadge = brand.status == 1 ?
+                    '<span class="badge badge-success">Active</span>' :
+                    '<span class="badge badge-warning">Inactive</span>';
+
+                var created_by = brand.created_by ? brand.created_by.name : 'N/A';
+
+                $('#BrandListTbl tbody').append(
+                    '<tr>' +
+                        '<td>' + brand.name + '</td>' +
+                        '<td>' + statusBadge + '</td>' +
+                        '<td>' + created_by + '</td>' +
+                        '<td>' + brand.created_at + '</td>' +
+                        '<td class="text-center">' +
+                            '<div class="dropdown open d-inline-block">' +
+                                '<button class="btn btn-primary btn-xs dropdown-toggle" type="button" id="actionDropdown' + brand.id + '" data-toggle="dropdown">' +
+                                    '<i class="fas fa-edit"></i>' +
+                                '</button>' +
+                                '<div class="dropdown-menu">' +
+                                    '<a class="dropdown-item" onclick="editBrand(' + brand.id + ')">Edit</a>' +
+                                    '<br>' +
+                                    '<a class="dropdown-item" onclick="deleteBrand(' + brand.id + ')">Delete</a>' +
+                                '</div>' +
+                            '</div>' +
+                        '</td>' +
+                    '</tr>'
+                );
+            });
+        },
+        error: function(xhr, status, error) {
+            console.error('Failed to load brand data:', error);
+        }
+    });
+}

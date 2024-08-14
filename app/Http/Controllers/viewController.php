@@ -72,13 +72,9 @@ class viewController extends DataController
     */
     public function index()
     {
-
         $data = array(
             'title'                 => 'Dashboard',
             'view'                  => 'home',
-            // 'css'                   => array(config('site-specific.morris-css')), //example to custom css
-            // 'script'                => array(config('site-specific.morris-min-js')), //example to custom js
-            // 'dashboard_data'        => $this->dashboardData(Auth::User()->branch), //example to custome function
         );
 
         return $this->default($data);

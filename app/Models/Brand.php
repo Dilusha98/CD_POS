@@ -24,4 +24,10 @@ class Brand extends Model
     protected $casts = ['status' => 'boolean'];
     public $timestamps = false;
 
+
+    public function createdBy()
+    {
+        return $this->belongsTo(User::class, 'created_by');
+    }
+
 }

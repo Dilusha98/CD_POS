@@ -9,6 +9,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\DB;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -28,11 +29,21 @@ class AuthenticatedSessionController extends Controller
         $request->authenticate();
 
         $user = Auth::user();
-        // $customData = DB::table('your_table_name')
-        //                 ->where('user_id', $user->id)
-        //                 ->first();
+        $user_role = Auth::user()->user_role;
 
-        session(['custom_data_key' => 'test']);
+        $permissionIds = DB::table('save_permissions')
+        ->where('user_role', $user_role)
+        ->pluck('permission');
+
+        $permissions = DB::table('user_permissions')
+            ->whereIn('upi', $permissionIds)
+            ->pluck('tle');
+
+        session(['permissions' => $permissions->toArray()]);
+
+        // if ($user->role == 'student') {
+        //     return redirect('/student-dashboard');
+        // }
 
         $request->session()->regenerate();
 

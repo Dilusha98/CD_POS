@@ -41,7 +41,7 @@ class DataController extends Controller
     */
     public function getBrands()
     {
-        $brands = Brand::all();
+        $brands = Brand::with('createdBy')->get();
         return $brands;
     }
 }

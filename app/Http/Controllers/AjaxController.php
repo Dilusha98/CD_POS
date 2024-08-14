@@ -10,6 +10,12 @@ use Exception;
 class AjaxController extends Controller
 {
 
+     /*
+    |--------------------------------------------------------------------------
+    | create brand
+    |--------------------------------------------------------------------------
+    |
+    */
     public function addNewBrand(BrandValidation $request)
     {
         try {
@@ -30,7 +36,6 @@ class AjaxController extends Controller
             return response()->json([
                 'success' => true,
                 'message' => 'Brand has been successfully added!',
-                'brand' => $brand
             ]);
 
         } catch (Exception $e) {
@@ -42,5 +47,24 @@ class AjaxController extends Controller
         }
 
     }
+
+    /*
+    |--------------------------------------------------------------------------
+    | get brand List
+    |--------------------------------------------------------------------------
+    |
+    */
+    public function brandList() {
+
+        if(!isPermissions('brand_list')){
+            return response()->json([
+                'message' => 'You do not have permission to view the brand list.'
+            ], 403);
+        }
+
+        $brands = Brand::with('createdBy')->get();
+        return response()->json(['brands' => $brands]);
+    }
+
 
 }
