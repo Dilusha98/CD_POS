@@ -7,7 +7,7 @@
             </div><!-- /.col -->
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="#">User Role</a></li>
+                    <li class="breadcrumb-item"><a href="#">User</a></li>
                     <li class="breadcrumb-item active">Create User Role</li>
                 </ol>
             </div><!-- /.col -->
@@ -21,8 +21,7 @@
 
 <!-- container -->
 <div class="container-fluid">
-    <form action="{{ route('create_user_role') }}" method="POST">
-        @csrf
+    <form id="userRoleForm" enctype="multipart/form-data">
 
         {{-- user role --}}
         <div class="card card-primary card-outline">
@@ -38,6 +37,7 @@
                             <input type="text" class="form-control form-control-sm" id="roleName" name="roleName"
                                 placeholder="Enter role name" maxlength="45">
                             <small id="charCount" class="form-text text-muted">45 characters left</small>
+                            <span class="text-danger" id="roleNameError"></span>
                         </div>
                     </div>
                 </div>
@@ -102,7 +102,7 @@
 
             {{-- Card Footer --}}
             <div class="card-footer text-right">
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" form="userRoleForm" id="userRoleSbmitBtn" name="userRoleSbmitBtn" class="btn btn-primary">Submit</button>
             </div>
         </div>
     </form>
@@ -111,60 +111,4 @@
 
 
 
-<!-- js -->
-<script>
-    //add event for count characters
-    document.addEventListener('DOMContentLoaded', function() {
-        var maxChars = 45;
-        var input = document.getElementById('roleName');
-        var charCount = document.getElementById('charCount');
 
-        input.addEventListener('input', function() {
-            var remaining = maxChars - input.value.length;
-            charCount.textContent = remaining + ' characters left';
-        });
-    });
-
-
-    // Add event listener to all 'Select All' checkboxes
-    document.querySelectorAll('.select-all').forEach(function(selectAllCheckbox) {
-        selectAllCheckbox.addEventListener('change', function() {
-            let target = this.dataset.target;
-            let checkboxes = document.querySelectorAll('#' + target +
-                ' input[type="checkbox"]:not(.select-all)');
-
-            // Set all checkboxes to the state of the 'Select All' checkbox
-            checkboxes.forEach(function(checkbox) {
-                checkbox.checked = selectAllCheckbox.checked;
-            });
-        });
-    });
-
-    // Add event listener to all individual checkboxes
-    document.querySelectorAll('.tab-pane input[type="checkbox"]:not(.select-all)').forEach(function(checkbox) {
-        checkbox.addEventListener('change', function() {
-            let tabPane = this.closest('.tab-pane');
-            let allCheckboxes = tabPane.querySelectorAll('input[type="checkbox"]:not(.select-all)');
-            let allChecked = Array.from(allCheckboxes).every(function(cb) {
-                return cb.checked;
-            });
-
-            // Check or uncheck the 'Select All' checkbox based on individual checkboxes
-            let selectAllCheckbox = tabPane.querySelector('.select-all');
-            selectAllCheckbox.checked = allChecked;
-        });
-    });
-
-    //empty field with reloading the page
-    window.onload = function() {
-        // Clear the text input
-        document.getElementById('roleName').value = '';
-
-        // Uncheck all checkboxes within the tab content
-        let checkboxes = document.querySelectorAll('#custom-tabs-four-tabContent input[type="checkbox"]');
-        checkboxes.forEach(function(checkbox) {
-            checkbox.checked = false;
-        });
-    };
-</script>
-<!-- /.js -->

@@ -33,10 +33,12 @@ Route::middleware('auth')->group(function () {
     |--------------------------------------------------------------------------
     |
     */
-    Route::get('/dashboard',[viewController::class,'index'])->name('dashboard');
-    Route::get('/brand',[viewController::class,'brand'])->name('brand');
+    Route::get('/dashboard', [viewController::class, 'index'])->name('dashboard');
+    Route::get('/brand', [viewController::class, 'brand'])->name('brand');
     //user role view
-    Route::get('/UserRole',[viewController::class,'userRole'])->name('user_role');
+    Route::get('/UserRole', [viewController::class, 'userRole'])->name('user_role');
+    //create user view
+    Route::get('/CreateUser', [viewController::class, 'createUser'])->name('create_user');
 
 
 
@@ -46,7 +48,9 @@ Route::middleware('auth')->group(function () {
     |--------------------------------------------------------------------------
     |
     */
-    Route::post('/add-brand',[AjaxController::class,'addNewBrand'])->name('add-brand');
+    Route::post('/add-brand', [AjaxController::class, 'addNewBrand'])->name('add-brand');
+    //user role action
+    Route::post('/CreateUserRole', [AjaxController::class, 'createUserRole'])->name('create_user_role');
 
     /*
     |--------------------------------------------------------------------------
@@ -54,8 +58,6 @@ Route::middleware('auth')->group(function () {
     |--------------------------------------------------------------------------
     |
     */
-    //user role action
-    Route::post('CreateUserRole', [actionController::class, 'createUserRole'])->name('create_user_role');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

@@ -60,8 +60,9 @@ return [
     'toastr-js'                     => "https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js",
 
     // Custom js example
-    'create-user-role-js'                       =>"/assets/js/brands.js?v=".$version,
+    'create-user-role-js'            =>"/customjs/user_role_create.js?v=".$version,
     'brand-js'                       =>"/customjs/brand.js?v=".$version,
+    'create-user-js'                 =>"/customjs/create_user.js?v=".$version,
 
 
 

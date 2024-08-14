@@ -115,10 +115,27 @@ class viewController extends DataController
         $data = array(
             'title'                 => 'User Role',
             'view'                  => 'user_role/create_user_role',
+            'script'                => array(config('site-specific.create-user-role-js')),
             'groupedData'           => $this->getUserPermission(),
         );
 
-        //dd($data);
+        return $this->default($data);
+    }
+    /*
+    |--------------------------------------------------------------------------
+    | Public Function Create User
+    |--------------------------------------------------------------------------
+    |
+    */
+    public function createUser()
+    {
+
+        $data = array(
+            'title'                 => 'Create User',
+            'view'                  => 'user_role/create_user',
+            'script'                => array(config('site-specific.create-user-js')),
+        );
+
         return $this->default($data);
     }
 }
