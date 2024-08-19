@@ -16,7 +16,11 @@ class checkPermissions
     public function handle(Request $request, Closure $next): Response
     {
         if(!isPermissions($request->route()->getName())){
-            return redirect()->route('dashboard')->with('error', 'You Have No Permission To Access');
+            if ($request->ajax()) {
+                return response()->json(['error' => 'You Have No Permission To Access'], 403);
+            } else {
+                return redirect()->route('dashboard')->with('error', 'You Have No Permission To Access');
+            }
         }
         return $next($request);
     }

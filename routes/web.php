@@ -47,9 +47,9 @@ Route::middleware(['auth', 'check_permissions'])->group(function () {
     */
     Route::post('/add-brand', [AjaxController::class, 'addNewBrand'])->name('add-brand');
     //user role action
-    Route::post('/CreateUserRole', [AjaxController::class, 'createUserRole'])->name('add_user_role');
-    Route::post('/add-brand', [AjaxController::class, 'addNewBrand'])->name('create_brand');
-
+    Route::post('/CreateUserRole', [AjaxController::class, 'createUserRole'])->name('create_user_role');
+    Route::post('/add-brand',[AjaxController::class,'addNewBrand'])->name('create_brand');
+    Route::post('/edit-brand/{id}',[AjaxController::class,'editNewBrand'])->name('edit_brand');
 
     /*
     |--------------------------------------------------------------------------
@@ -68,8 +68,8 @@ Route::middleware(['auth'])->group(function () {
     |--------------------------------------------------------------------------
     |
     */
-    Route::get('/get-brand-data', [AjaxController::class, 'brandList'])->name('get_brand_list');
-    // Route::get('/get-brand-data',[AjaxController::class,'brandList'])->name('get_brand_list');
+    Route::get('/get-brand-data',           [AjaxController::class,'brandList'])->name('get_brand_list');
+    Route::get('/get-brand-details/{id}',   [AjaxController::class,'getBrand'])->name('getBrand');
 
     Route::get('/user-phone-uniq-validation', [AjaxController::class, 'phoneNumberValidation'])->name('user_phone_uniq_validation');
     Route::get('/user-user-name-uniq-validation', [AjaxController::class, 'userNameValidation'])->name('user_user_name_uniq_validation');
