@@ -45,7 +45,7 @@ Route::middleware(['auth', 'check_permissions'])->group(function () {
     |--------------------------------------------------------------------------
     |
     */
-    Route::post('/add-brand', [AjaxController::class, 'addNewBrand'])->name('add-brand');
+    // Route::post('/add-brand', [AjaxController::class, 'addNewBrand'])->name('add-brand');
     //user role action
     Route::post('/CreateUserRole', [AjaxController::class, 'createUserRole'])->name('create_user_role');
     Route::post('/add-brand',[AjaxController::class,'addNewBrand'])->name('create_brand');
