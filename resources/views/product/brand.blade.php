@@ -1,3 +1,42 @@
+<style>
+    .dropdown .btn.dropdown-toggle {
+        background-color: #007bff;
+        border-color: #007bff;
+        color: white;
+        padding: 5px 10px;
+        font-size: 12px;
+    }
+
+    .dropdown .btn.dropdown-toggle.btn-xs {
+        padding: 3px 8px;
+        font-size: 10px;
+        border-radius: 4px;
+    }
+
+    .dropdown-menu {
+        min-width: 120px;
+        padding: 0;
+        border-radius: 4px;
+        border: none;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .dropdown-item {
+        padding: 10px 15px;
+        font-size: 13px;
+        transition: background-color 0.3s, color 0.3s;
+    }
+
+    .dropdown-item:hover {
+        background-color: #cacaca;
+        color: white;
+    }
+
+    .dropdown-item + .dropdown-item {
+        border-top: 1px solid #e9ecef;
+    }
+</style>
+
 <!-- Content Header (Page header) -->
 <div class="content-header">
     <div class="container-fluid">
@@ -54,12 +93,11 @@
                                     <td>{{ $brand->created_at }}</td>
                                     <td class="text-center">
                                         <div class="dropdown open d-inline-block">
-                                            <button class="btn btn-primary btn-xs dropdown-toggle" type="button" id="actionDropdown{{ $brand->id }}" data-toggle="dropdown" >
+                                            <button class="btn btn-primary btn-xs dropdown-toggle" type="button" id="actionDropdown{{ $brand->id }}" data-toggle="dropdown">
                                                 <i class="fas fa-edit"></i>
                                             </button>
                                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                <a class="dropdown-item" onclick="editBrand({{ $brand->id }})" >Edit</a>
-                                                <br>
+                                                <a class="dropdown-item" onclick="editBrand({{ $brand->id }})">Edit</a>
                                                 <a class="dropdown-item" onclick="deleteBrand({{ $brand->id }})">Delete</a>
                                             </div>
                                         </div>
@@ -79,3 +117,4 @@
 
 <!-- brand add modal -->
 @include('product.modals.brandAddModal')
+@include('product.modals.brandEditModal')

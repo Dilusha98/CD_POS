@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 
 use Intervention\Image\ImageManager as ImageManager;
 use Intervention\Image\Drivers\GD\Driver as Driver;
@@ -53,4 +54,19 @@ function saveImageWebp($file)
         return null;
     }
 
+}
+
+// delete Image
+function deleteImage($imagePath)
+{
+    // Define the full path to the image
+    $fullPath = public_path('images/' . $imagePath);
+
+    // Check if the file exists and delete it
+    if (File::exists($fullPath)) {
+        File::delete($fullPath);
+        return true;
+    }
+
+    return false;
 }
