@@ -74,6 +74,12 @@ class AjaxController extends Controller
     public function createUserRole(UserRoleRequest $request)
     {
         try {
+
+            if (!isPermissions('create_user_role')) {
+                return response()->json([
+                    'message' => 'You do not have permission to user role.'
+                ], 403);
+            }
             DB::beginTransaction();
 
             //create user role

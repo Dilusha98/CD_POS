@@ -47,7 +47,7 @@ Route::middleware(['auth', 'check_permissions'])->group(function () {
     */
     // Route::post('/add-brand', [AjaxController::class, 'addNewBrand'])->name('add-brand');
     //user role action
-    Route::post('/CreateUserRole', [AjaxController::class, 'createUserRole'])->name('create_user_role');
+    //Route::post('/CreateUserRole', [AjaxController::class, 'createUserRole'])->name('create_user_role');
     Route::post('/add-brand',[AjaxController::class,'addNewBrand'])->name('create_brand');
     Route::post('/edit-brand/{id}',[AjaxController::class,'editNewBrand'])->name('edit_brand');
 
@@ -92,6 +92,7 @@ Route::middleware(['auth', 'check_permissions'])->group(function () {
 
 Route::middleware(['auth'])->group(function () {
 
+    Route::post('/CreateUserRole', [AjaxController::class, 'createUserRole'])->name('save_user_role');
 });
 
 
