@@ -82,4 +82,17 @@ Route::middleware(['auth'])->group(function () {
 });
 
 
+
+// chandima
+Route::middleware(['auth', 'check_permissions'])->group(function () {
+
+
+});
+
+
+Route::middleware(['auth'])->group(function () {
+
+});
+
+
 require __DIR__ . '/auth.php';
