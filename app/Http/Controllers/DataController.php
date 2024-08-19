@@ -12,6 +12,8 @@ use Illuminate\Database\QueryException;
 //models
 use App\Models\UserPermissionModel;
 use App\Models\Brand;
+use App\Models\UserModel;
+use App\Models\User;
 
 class DataController extends Controller
 {
@@ -43,5 +45,36 @@ class DataController extends Controller
     {
         $brands = Brand::with('createdBy')->get();
         return $brands;
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | get user role
+    |--------------------------------------------------------------------------
+    |
+    */
+    public function getUserRole()
+    {
+        try {
+            $data = UserModel::where('status', 1)->get();
+            return $data;
+        } catch (Exception $e) {
+            return $e;
+        }
+    }
+    /*
+    |--------------------------------------------------------------------------
+    | get user for edit
+    |--------------------------------------------------------------------------
+    |
+    */
+    public function getUserForEdit($userId)
+    {
+        try {
+            $data = User::where('id', $userId)->get();
+            return $data;
+        } catch (Exception $e) {
+            return $e;
+        }
     }
 }

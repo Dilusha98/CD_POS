@@ -27,18 +27,19 @@ class AuthenticatedSessionController extends Controller
     public function store(LoginRequest $request): RedirectResponse
     {
         $request->authenticate();
-
+       
         $user = Auth::user();
         $user_role = Auth::user()->user_role;
 
         $permissionIds = DB::table('save_permissions')
         ->where('user_role', $user_role)
         ->pluck('permission');
+       
 
         $permissions = DB::table('user_permissions')
             ->whereIn('upi', $permissionIds)
             ->pluck('tle');
-
+        
         session(['permissions' => $permissions->toArray()]);
 
         // if ($user->role == 'student') {

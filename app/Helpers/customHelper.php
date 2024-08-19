@@ -9,9 +9,10 @@ use Intervention\Image\Drivers\GD\Driver as Driver;
 use App\Models\SavePermissionModel;
 
 
-function isPermissions($permission){
+function isPermissions($permission)
+{
     $permission_id = DB::table('user_permissions')->where('tle', $permission)->value('upi');
-    $UserPermissions = SavePermissionModel::where('user_role',Auth::user()->user_role)->where('permission',$permission_id)->exists();
+    $UserPermissions = SavePermissionModel::where('user_role', Auth::user()->user_role)->where('permission', $permission_id)->exists();
     return $UserPermissions;
 }
 
@@ -48,9 +49,17 @@ function saveImageWebp($file)
         $image->toWebp(quality: 90)->save($path);
 
         return $fileName;
-
     } catch (\Exception $e) {
         return null;
     }
+}
 
+//Token Create with data
+if (!function_exists('tokenDecode')) {
+
+    function tokenDecode($data)
+    {
+        $tokenData = base64_decode($data);
+        return $tokenData;
+    }
 }

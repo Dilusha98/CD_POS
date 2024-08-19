@@ -34,6 +34,7 @@ return [
     'dropify-css'                   => "https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/css/dropify.css",
     'sweetAlert-css'                => "https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.12.4/sweetalert2.css",
     'toastr-css'                    => "https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css",
+    'switchery-css'                 => "https://cdnjs.cloudflare.com/ajax/libs/switchery/0.8.2/switchery.min.css",
 
     // custom css
 
@@ -58,11 +59,14 @@ return [
     'dropify-js'                    => "https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/js/dropify.min.js",
     'sweetAlert-js'                 => "https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.12.4/sweetalert2.min.js",
     'toastr-js'                     => "https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js",
+    'switchery-js'                  => "https://cdnjs.cloudflare.com/ajax/libs/switchery/0.8.2/switchery.min.js",
 
     // Custom js example
     'create-user-role-js'            =>"/customjs/user_role_create.js?v=".$version,
     'brand-js'                       =>"/customjs/brand.js?v=".$version,
     'create-user-js'                 =>"/customjs/create_user.js?v=".$version,
+    'user-list-js'                 =>"/customjs/user_list.js?v=".$version,
+    'user-edit-js'                 =>"/customjs/edit_user.js?v=".$version,
 
 
 

@@ -2,7 +2,6 @@ $(function () {
 
     //form submit
     if ($("#userCreateForm").length > 0) {
-
         $('#userCreateForm').validate({
             errorPlacement: function(error, element) {
                 var name = element.attr('name');
@@ -22,12 +21,29 @@ $(function () {
                 phoneNo: {
                     required: true,
                     phoneNumber: true,
+                    monoExist: true
                 },
                 userEmail: {
                     required: true,
                     email: true,
-                    maxlength: 50
-                }
+                    maxlength: 50,
+                    uEmailExist: true
+                },
+                userName: {
+                    required: true,
+                    minlength: 5,
+                    maxlength: 50,
+                    uNameExist: true
+                },
+                password: {
+                    required: true,
+                    minlength: 8,  // Minimum length
+                    maxlength: 20, // Maximum length
+                    pwcheck: true  // Custom validation rule (optional)
+                },
+                userRole: {
+                    required: true,
+                },
             },
             messages: {
                 firatName: {
@@ -48,13 +64,27 @@ $(function () {
                     required: "Please enter your email address",
                     email: "Please enter a valid email address",
                     maxlength: "Email must not exceed 50 characters"
-                }
+                },
+                userName: {
+                    required: "Please enter a user name",
+                    minlength: "User name must be at least 5 characters long",
+                    maxlength: "User name must be no more than 50 characters long"
+                },
+                password: {
+                    required: "Please enter a password",
+                    minlength: "Password must be at least 8 characters long",
+                    maxlength: "Password must be no more than 20 characters long",
+                    pwcheck: "Password must contain at least one letter, one number, and one special character"
+                },
+                userRole: {
+                    required: "Please enter a user role"
+                },
             },
             submitHandler: function(form, event) {
                 event.preventDefault();
 
                 // var formData = new FormData(form);
-                var formData = new FormData(document.getElementById('brandForm'));
+                var formData = new FormData(document.getElementById('userCreateForm'));
 
                 $.ajaxSetup({
                     headers: {
@@ -63,7 +93,7 @@ $(function () {
                 });
 
                 $.ajax({
-                    url:'/add-brand',
+                    url:'/SaveUser',
                     type: 'POST',
                     data: formData,
                     processData: false,
@@ -72,12 +102,10 @@ $(function () {
                         Swal.fire({
                             icon: 'success',
                             title: 'Brand Added',
-                            text: 'The brand has been successfully added!',
+                            text: 'The user has been successfully added!',
                             confirmButtonText: 'OK'
                         });
-                        $('#brandAddModal').modal('hide');
                         form.reset();
-                        $('.dropify-clear').click();
                     },
                     error: function(response) {
                         if (response.status === 422) {
@@ -117,10 +145,6 @@ $(function () {
         $lastNamecharCount.text(remaining + ' characters left');
     });
 
-    //phone number validation
-    /*$.validator.addMethod("phoneNumber", function(value, element) {
-        return this.optional(element) || /^(\+\d{1,3}[- ]?)?\d{10,15}$/.test(value);
-    }, "Please enter a valid phone number.");*/
     $.validator.addMethod("phoneNumber", function(phone_number, element) {
         phone_number = phone_number.replace(/\s+/g, "");
         var isValid = false;
@@ -161,4 +185,143 @@ $(function () {
         var remaining = maxChars - $(this).val().length;
         $userEmailCount.text(remaining + ' characters left');
     });
+
+    // Add event for counting characters for email
+    var $userName = $('#userName');
+    var $userNameCount = $('#userNameCount');
+    $userName.on('input', function() {
+        var remaining = maxChars - $(this).val().length;
+        $userNameCount.text(remaining + ' characters left');
+    });
+
+
+    // Custom password validation rule (optional)
+    $.validator.addMethod("pwcheck", function(value) {
+        return /[A-Za-z]/.test(value) // has a letter
+            && /[0-9]/.test(value) // has a digit
+            && /[^A-Za-z0-9]/.test(value); // has a special character
+    });
+
+    var maxCharsPass = 20;
+    var $password = $('#password');
+    var $passwordCount = $('#passwordCount');
+    $password.on('input', function() {
+        var remaining = maxCharsPass - $(this).val().length;
+        $passwordCount.text(remaining + ' characters left');
+    });
+
+
+    var maxCharsAddress = 200;
+    var $address = $('#address');
+    var $addressCount = $('#addressCount');
+    $address.on('input', function() {
+        var remaining = maxCharsAddress - $(this).val().length;
+        $addressCount.text(remaining + ' characters left');
+    });
 });
+
+
+
+
+/* Start mobile number validation  */
+$.validator.addMethod(
+    "monoExist",
+    function (value, element) {
+        var tempStatus = false;
+        $.ajax({
+            type: "GET",
+            url: '/user-phone-uniq-validation',
+            async: false,
+            data: {
+                value: value,
+                id: $("#userId").val(),
+            },
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+            },
+            success: function (status) {
+                if (status) {
+                    tempStatus = false;
+                } else {
+                    tempStatus = true;
+                }
+            },
+            error: function () {
+            },
+        }).fail(function (xhr, status, textStatus, error) {
+            located(xhr);
+        });
+
+        return tempStatus;
+    },
+    'This phone number is already in use. Please try again!'
+);
+
+
+/* Start user name validation  */
+$.validator.addMethod(
+    "uNameExist",
+    function (value, element) {
+        var tempStatus = false;
+        $.ajax({
+            type: "GET",
+            url: '/user-user-name-uniq-validation',
+            async: false,
+            data: {
+                value: value,
+                id: $("#userId").val(),
+            },
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+            },
+            success: function (status) {
+                if (status) {
+                    tempStatus = false;
+                } else {
+                    tempStatus = true;
+                }
+            },
+            error: function () {
+            },
+        }).fail(function (xhr, status, textStatus, error) {
+            located(xhr);
+        });
+
+        return tempStatus;
+    },
+    'This user name is already in use. Please try again!'
+);
+
+/* Start user email validation  */
+$.validator.addMethod(
+    "uEmailExist",
+    function (value, element) {
+        var tempStatus = false;
+        $.ajax({
+            type: "GET",
+            url: '/user-email-uniq-validation',
+            async: false,
+            data: {
+                value: value,
+                id: $("#userId").val(),
+            },
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+            },
+            success: function (status) {
+                if (status) {
+                    tempStatus = false;
+                } else {
+                    tempStatus = true;
+                }
+            },
+            error: function () {
+            },
+        }).fail(function (xhr, status, textStatus, error) {
+            located(xhr);
+        });
+
+        return tempStatus;
+    },
+    'This user email is already in use. Please try again!'
+);

@@ -28,6 +28,7 @@ class viewController extends DataController
             config('site-specific.dropify-css'),
             config('site-specific.sweetAlert-css'),
             config('site-specific.toastr-css'),
+            config('site-specific.switchery-css'),
         );
 
         //Default script
@@ -47,6 +48,7 @@ class viewController extends DataController
             config('site-specific.dropify-js'),
             config('site-specific.sweetAlert-js'),
             config('site-specific.toastr-js'),
+            config('site-specific.switchery-js'),
         );
 
         if (isset($data['css'])) {
@@ -130,7 +132,50 @@ class viewController extends DataController
             'title'                 => 'Create User',
             'view'                  => 'user_role/create_user',
             'script'                => array(config('site-specific.create-user-js')),
+            'userRoleData'           => $this->getUserRole(),
         );
+
+        return $this->default($data);
+    }
+    /*
+    |--------------------------------------------------------------------------
+    | Public Function User List
+    |--------------------------------------------------------------------------
+    |
+    */
+    public function userList()
+    {
+
+        $data = array(
+            'title'                 => 'User List',
+            'view'                  => 'user_role/user_list',
+            'script'                => array(config('site-specific.user-list-js')),
+            //'userRoleData'           => $this->getUserRole(),
+        );
+
+        return $this->default($data);
+    }
+    /*
+    |--------------------------------------------------------------------------
+    | Public Function Edit User
+    |--------------------------------------------------------------------------
+    |
+    */
+    public function userEdit(Request $request)
+    {
+        $userId = tokenDecode($request->query('token'));
+        
+
+
+        $data = array(
+            'title'                 => 'User Edit',
+            'view'                  => 'user_role/edit_user',
+            'script'                => array(config('site-specific.user-edit-js')),
+            'userRoleData'           => $this->getUserRole(),
+            'editData'           => $this->getUserForEdit($userId),
+        );
+
+        //dd($data);
 
         return $this->default($data);
     }

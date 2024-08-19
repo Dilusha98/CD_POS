@@ -197,7 +197,9 @@
     <!-- Sidebar -->
     <div class="sidebar">
 
-        <?php $permission_titles = session('permissions')?>
+        <?php 
+          $permission_titles = session('permissions');
+        ?>
 
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
@@ -223,6 +225,15 @@
                 $product_permissions = array(
                     'brand_list',
                     'category_list'
+                );
+
+                $user_permissions = array(
+                    'user',
+                    'create_user_role',
+                    'assign_permissions',
+                    'edit_user_role',
+                    'create_user',
+                    'edit_user'
                 );
            ?>
 
@@ -257,41 +268,64 @@
             @endif
 
           {{-- user role section start --}}
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-user"></i>
-              <p>
-                  User
-                <i class="fas fa-angle-left right"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="/UserRole" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Create User Role</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/layout/top-nav-sidebar.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Assign Permissions</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/layout/boxed.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Edit User Role</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="/CreateUser" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Create User</p>
-                </a>
-              </li>
-            </ul>
-          </li>
+          @if (!empty(array_intersect($permission_titles, $user_permissions)))
+            <li class="nav-item">
+              <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-user"></i>
+                <p>
+                    User
+                  <i class="fas fa-angle-left right"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                @if (in_array('create_user_role',$permission_titles))
+                  <li class="nav-item">
+                    <a href="/UserRole" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Create User Role</p>
+                    </a>
+                  </li>
+                @endif
+                
+                @if (in_array('assign_permissions',$permission_titles))
+                  <li class="nav-item">
+                    <a href="pages/layout/top-nav-sidebar.html" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Assign Permissions</p>
+                    </a>
+                  </li>
+                @endif
+               
+                @if (in_array('edit_user_role',$permission_titles))
+                  <li class="nav-item">
+                    <a href="pages/layout/boxed.html" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Edit User Role</p>
+                    </a>
+                  </li>
+                @endif
+                
+                @if (in_array('create_user',$permission_titles))
+                  <li class="nav-item">
+                    <a href="/CreateUser" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Create User</p>
+                    </a>
+                  </li>
+                @endif
+
+                @if (in_array('user_list',$permission_titles))
+                  <li class="nav-item">
+                    <a href="/UserList" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>User List</p>
+                    </a>
+                  </li>
+                @endif
+
+              </ul>
+            </li>
+          @endif
         </nav>
           {{-- user role section end --}}
   </aside>
