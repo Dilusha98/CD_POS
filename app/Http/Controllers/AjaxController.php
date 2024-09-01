@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\BrandValidation;
 use App\Http\Requests\brandEditValidation;
+use App\Http\Requests\CategoryEditValidation;
+use App\Http\Requests\categoryValidation;
 use App\Http\Requests\UserRoleRequest;
 use App\Http\Requests\CreateUserRequest;
 use App\Http\Requests\CreateUserPasswordValidationRequest;
@@ -22,6 +24,7 @@ use App\Models\Brand;
 use App\Models\UserModel;
 use App\Models\SavePermissionModel;
 use App\Models\User;
+use App\Models\category;
 
 class AjaxController extends Controller
 {
@@ -406,6 +409,187 @@ class AjaxController extends Controller
     }
 
 
+    /*
+    |--------------------------------------------------------------------------
+    | create category
+    |--------------------------------------------------------------------------
+    |
+    */
+    public function addNewCategory(categoryValidation $request)
+    {
+        try {
+            DB::beginTransaction();
+
+            $data = $request->validated();
+
+            $image = null;
+            if ($request->hasFile('categoryImage')) {
+                $image = saveImageWebp($request->file('categoryImage'));
+            }
+
+            $brand = category::create([
+                'name' => $data['categoryName'],
+                'image' => $image,
+                'description' => $data['catDescription'],
+                'created_by' => auth()->user()->id,
+            ]);
+            DB::commit();
+            return response()->json([
+                'success' => true,
+                'message' => 'Category has been successfully added!',
+            ]);
+        } catch (Exception $e) {
+            DB::rollBack();
+            return response()->json([
+                'success' => false,
+                'message' => 'An error occurred while adding the category. Please try again later.',
+                'error' => $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | get category
+    |--------------------------------------------------------------------------
+    |
+    */
+    protected function getCategory($id){
+
+        if(!isPermissions('user_role_edit')){
+            return response()->json([
+                'message' => 'You do not have permission to view the Category.'
+            ], 403);
+        }
+
+        $category = category::with('createdBy')->where('id',$id)->get();
+        return response()->json($category);
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Edit Category
+    |--------------------------------------------------------------------------
+    |
+    */
+    public function editNewCategory(CategoryEditValidation $request, $id)
+    {
+        try {
+            DB::beginTransaction();
+
+
+            $data = $request->validated();
+
+            $category = category::findOrFail($id);
+            if ($request->hasFile('categoryEditImage')) {
+
+                $logoName = saveImageWebp($request->file('categoryEditImage'));
+                if ($category->image) {
+                    deleteImage($category->image);
+                }
+
+            } else {
+                $logoName = $category->image;
+            }
+
+            $category->update([
+                'name' => $data['categoryEditName'],
+                'image' => $logoName,
+                'description' => $data['catEditDescription'],
+                'status' => $data['catStatus'],
+                'updated_by' => auth()->user()->id,
+            ]);
+
+            DB::commit();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Category has been successfully updated!',
+            ]);
+        } catch (\Exception $e) {
+            DB::rollBack();
+
+            return response()->json([
+                'success' => false,
+                'message' => 'An error occurred while updating the Category. Please try again later.',
+                'error' => $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | get category List
+    |--------------------------------------------------------------------------
+    |
+    */
+    public function CategoryList()
+    {
+
+        if (!isPermissions('category_list')) {
+            return response()->json([
+                'message' => 'You do not have permission to view the Category list.'
+            ], 403);
+        }
+
+        $category = category::with('createdBy')->get();
+        return response()->json(['category' => $category]);
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | delete category
+    |--------------------------------------------------------------------------
+    |
+    */
+    public function CategoryDelete($id)
+    {
+        try {
+
+            $category = Category::findOrFail($id);
+            $category->delete();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Category deleted successfully.',
+            ], 200);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to delete the category. Error: ' . $e->getMessage(),
+            ], 500);
+        }
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | delete brand
+    |--------------------------------------------------------------------------
+    |
+    */
+    public function brandDelete($id)
+    {
+        try {
+
+            $brand = Brand::findOrFail($id);
+            $brand->delete();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Brand deleted successfully.',
+            ], 200);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to delete the brand. Error: ' . $e->getMessage(),
+            ], 500);
+        }
+    }
 
 
 

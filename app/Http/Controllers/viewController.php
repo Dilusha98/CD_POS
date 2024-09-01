@@ -164,7 +164,7 @@ class viewController extends DataController
     public function userEdit(Request $request)
     {
         $userId = tokenDecode($request->query('token'));
-        
+
 
 
         $data = array(
@@ -176,6 +176,24 @@ class viewController extends DataController
         );
 
         //dd($data);
+
+        return $this->default($data);
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Public Function Categories list
+    |--------------------------------------------------------------------------
+    |
+    */
+    public function categories(Request $request)
+    {
+        $data = array(
+            'title'                 => 'Categories',
+            'view'                  => 'product/categories',
+            'script'                => array(config('site-specific.category-js')),
+            'categories'            => $this->getCategories(),
+        );
 
         return $this->default($data);
     }

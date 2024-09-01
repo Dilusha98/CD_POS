@@ -197,7 +197,7 @@
     <!-- Sidebar -->
     <div class="sidebar">
 
-        <?php 
+        <?php
           $permission_titles = session('permissions');
         ?>
 
@@ -224,6 +224,7 @@
           <?php
                 $product_permissions = array(
                     'brand_list',
+                    'category_list',
                     'category_list'
                 );
 
@@ -233,7 +234,7 @@
                     'assign_permissions',
                     'edit_user_role',
                     'create_user',
-                    'edit_user'
+                    'edit_user',
                 );
            ?>
 
@@ -249,7 +250,7 @@
                     <ul class="nav nav-treeview">
                         @if (in_array('category_list',$permission_titles))
                             <li class="nav-item">
-                                <a href="pages/layout/top-nav.html" class="nav-link">
+                                <a href="/categories" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Category</p>
                                 </a>
@@ -286,7 +287,7 @@
                     </a>
                   </li>
                 @endif
-                
+
                 @if (in_array('assign_permissions',$permission_titles))
                   <li class="nav-item">
                     <a href="pages/layout/top-nav-sidebar.html" class="nav-link">
@@ -295,7 +296,7 @@
                     </a>
                   </li>
                 @endif
-               
+
                 @if (in_array('edit_user_role',$permission_titles))
                   <li class="nav-item">
                     <a href="pages/layout/boxed.html" class="nav-link">
@@ -304,7 +305,7 @@
                     </a>
                   </li>
                 @endif
-                
+
                 @if (in_array('create_user',$permission_titles))
                   <li class="nav-item">
                     <a href="/CreateUser" class="nav-link">
