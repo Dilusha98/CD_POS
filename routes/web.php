@@ -35,6 +35,7 @@ Route::middleware(['auth', 'check_permissions'])->group(function () {
     Route::get('/CreateUser', [viewController::class, 'createUser'])->name('create_user');
     Route::get('/UserList', [viewController::class, 'userList'])->name('user_list');
     Route::get('/UserEdit', [viewController::class, 'userEdit'])->name('user_edit');
+    Route::get('/categories', [viewController::class, 'categories'])->name('category_list');
 
 
 
@@ -48,9 +49,10 @@ Route::middleware(['auth', 'check_permissions'])->group(function () {
     // Route::post('/add-brand', [AjaxController::class, 'addNewBrand'])->name('add-brand');
     //user role action
     //Route::post('/CreateUserRole', [AjaxController::class, 'createUserRole'])->name('create_user_role');
-    Route::post('/add-brand', [AjaxController::class, 'addNewBrand'])->name('create_brand');
-    Route::post('/edit-brand/{id}', [AjaxController::class, 'editNewBrand'])->name('edit_brand');
-
+    Route::post('/add-brand',[AjaxController::class,'addNewBrand'])->name('create_brand');
+    Route::post('/edit-brand/{id}',[AjaxController::class,'editNewBrand'])->name('edit_brand');
+    Route::post('/add-category',[AjaxController::class,'addNewCategory'])->name('add_category');
+    Route::post('/edit-category/{id}',[AjaxController::class,'editNewCategory'])->name('edit_category');
     /*
     |--------------------------------------------------------------------------
     | Action Routes
@@ -68,8 +70,9 @@ Route::middleware(['auth'])->group(function () {
     |--------------------------------------------------------------------------
     |
     */
-    Route::get('/get-brand-data',           [AjaxController::class, 'brandList'])->name('get_brand_list');
-    Route::get('/get-brand-details/{id}',   [AjaxController::class, 'getBrand'])->name('getBrand');
+    Route::get('/get-brand-data',           [AjaxController::class,'brandList'])->name('get_brand_list');
+    Route::get('/get-brand-details/{id}',   [AjaxController::class,'getBrand'])->name('getBrand');
+    Route::delete('/delete-brand/{id}',      [AjaxController::class,'brandDelete'])->name('delete_brand');
 
     Route::get('/user-phone-uniq-validation', [AjaxController::class, 'phoneNumberValidation'])->name('user_phone_uniq_validation');
     Route::get('/user-user-name-uniq-validation', [AjaxController::class, 'userNameValidation'])->name('user_user_name_uniq_validation');
@@ -79,6 +82,10 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/current-password-match-validation', [AjaxController::class, 'currentPasswordCheckValidation'])->name('current_password_match_validation');
     Route::post('/SaveResetPassword', [AjaxController::class, 'saveResetPassword'])->name('save_reset_password');
+
+    Route::get('/get-category-details/{id}', [AjaxController::class, 'getCategory'])->name('get_category');
+    Route::get('/get-category-data',         [AjaxController::class,'CategoryList'])->name('get_category_list');
+    Route::delete('/delete-category/{id}',      [AjaxController::class,'CategoryDelete'])->name('delete_category');
 });
 
 

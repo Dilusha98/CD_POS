@@ -14,6 +14,7 @@ use App\Models\UserPermissionModel;
 use App\Models\Brand;
 use App\Models\UserModel;
 use App\Models\User;
+use App\Models\category;
 
 class DataController extends Controller
 {
@@ -60,6 +61,7 @@ class DataController extends Controller
             return $e;
         }
     }
+
     /*
     |--------------------------------------------------------------------------
     | get user for edit
@@ -77,6 +79,20 @@ class DataController extends Controller
     }
 
 
+    /*
+    |--------------------------------------------------------------------------
+    | get user categories
+    |--------------------------------------------------------------------------
+    |
+    */
+    public function getCategories(){
+        try {
+            $data = category::with('createdBy')->get();
+            return $data;
+        } catch (Exception $e) {
+            return $e;
+        }
+    }
 
 
 

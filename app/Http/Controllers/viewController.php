@@ -211,4 +211,22 @@ class viewController extends DataController
 
         return $this->default($data);
     }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Public Function Categories list
+    |--------------------------------------------------------------------------
+    |
+    */
+    public function categories(Request $request)
+    {
+        $data = array(
+            'title'                 => 'Categories',
+            'view'                  => 'product/categories',
+            'script'                => array(config('site-specific.category-js')),
+            'categories'            => $this->getCategories(),
+        );
+
+        return $this->default($data);
+    }
 }
