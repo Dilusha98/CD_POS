@@ -279,32 +279,6 @@
                 </p>
               </a>
               <ul class="nav nav-treeview">
-                @if (in_array('create_user_role',$permission_titles))
-                  <li class="nav-item">
-                    <a href="/UserRole" class="nav-link">
-                      <i class="far fa-circle nav-icon"></i>
-                      <p>Create User Role</p>
-                    </a>
-                  </li>
-                @endif
-
-                @if (in_array('assign_permissions',$permission_titles))
-                  <li class="nav-item">
-                    <a href="pages/layout/top-nav-sidebar.html" class="nav-link">
-                      <i class="far fa-circle nav-icon"></i>
-                      <p>Assign Permissions</p>
-                    </a>
-                  </li>
-                @endif
-
-                @if (in_array('edit_user_role',$permission_titles))
-                  <li class="nav-item">
-                    <a href="pages/layout/boxed.html" class="nav-link">
-                      <i class="far fa-circle nav-icon"></i>
-                      <p>Edit User Role</p>
-                    </a>
-                  </li>
-                @endif
 
                 @if (in_array('create_user',$permission_titles))
                   <li class="nav-item">
@@ -341,7 +315,6 @@
                     </a>
                   </li>
                 @endif
-
 
 
               </ul>
