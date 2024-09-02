@@ -48,8 +48,8 @@ Route::middleware(['auth', 'check_permissions'])->group(function () {
     // Route::post('/add-brand', [AjaxController::class, 'addNewBrand'])->name('add-brand');
     //user role action
     //Route::post('/CreateUserRole', [AjaxController::class, 'createUserRole'])->name('create_user_role');
-    Route::post('/add-brand',[AjaxController::class,'addNewBrand'])->name('create_brand');
-    Route::post('/edit-brand/{id}',[AjaxController::class,'editNewBrand'])->name('edit_brand');
+    Route::post('/add-brand', [AjaxController::class, 'addNewBrand'])->name('create_brand');
+    Route::post('/edit-brand/{id}', [AjaxController::class, 'editNewBrand'])->name('edit_brand');
 
     /*
     |--------------------------------------------------------------------------
@@ -68,8 +68,8 @@ Route::middleware(['auth'])->group(function () {
     |--------------------------------------------------------------------------
     |
     */
-    Route::get('/get-brand-data',           [AjaxController::class,'brandList'])->name('get_brand_list');
-    Route::get('/get-brand-details/{id}',   [AjaxController::class,'getBrand'])->name('getBrand');
+    Route::get('/get-brand-data',           [AjaxController::class, 'brandList'])->name('get_brand_list');
+    Route::get('/get-brand-details/{id}',   [AjaxController::class, 'getBrand'])->name('getBrand');
 
     Route::get('/user-phone-uniq-validation', [AjaxController::class, 'phoneNumberValidation'])->name('user_phone_uniq_validation');
     Route::get('/user-user-name-uniq-validation', [AjaxController::class, 'userNameValidation'])->name('user_user_name_uniq_validation');
@@ -83,17 +83,55 @@ Route::middleware(['auth'])->group(function () {
 
 
 
-// chandima
+/*chandima start*/
 Route::middleware(['auth', 'check_permissions'])->group(function () {
+    /*
+    |--------------------------------------------------------------------------
+    | View Routes
+    |--------------------------------------------------------------------------
+    |
+    */
+    Route::get('/UserRoleList', [viewController::class, 'userRoleList'])->name('user_role_list');
+    Route::get('/UserRoleEdit', [viewController::class, 'userRoleEdit'])->name('user_role_edit');
 
 
+    /*
+    |--------------------------------------------------------------------------
+    | Ajax Routes
+    |--------------------------------------------------------------------------
+    |
+    */
+
+    /*
+    |--------------------------------------------------------------------------
+    | Action Routes
+    |--------------------------------------------------------------------------
+    |
+    */
 });
 
 
 Route::middleware(['auth'])->group(function () {
-
+    /*
+    |--------------------------------------------------------------------------
+    | Ajax Routes
+    |--------------------------------------------------------------------------
+    |
+    */
     Route::post('/CreateUserRole', [AjaxController::class, 'createUserRole'])->name('save_user_role');
+    Route::get('/get-user-role-list', [AjaxController::class, 'getUserRoleList'])->name('get_user_role_list');
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Action Routes
+    |--------------------------------------------------------------------------
+    |
+    */
+    Route::post('/UpdateUser', [ActionController::class, 'userUpdate'])->name('user_update');
+    Route::post('/UpdateUserRole', [ActionController::class, 'updateUserRole'])->name('user_role_update');
 });
+/*chandima end*/
 
 
 require __DIR__ . '/auth.php';

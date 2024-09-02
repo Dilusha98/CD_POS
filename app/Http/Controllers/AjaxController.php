@@ -8,6 +8,7 @@ use App\Http\Requests\brandEditValidation;
 use App\Http\Requests\UserRoleRequest;
 use App\Http\Requests\CreateUserRequest;
 use App\Http\Requests\CreateUserPasswordValidationRequest;
+use App\Http\Requests\UpdateUserRequest;
 use Exception;
 use Carbon\Carbon;
 use DateTime;
@@ -208,26 +209,24 @@ class AjaxController extends Controller
             ], 500);
         }
     }
-
     /*
     |--------------------------------------------------------------------------
     | get brand
     |--------------------------------------------------------------------------
     |
     */
-    public function getBrand($id) {
+    public function getBrand($id)
+    {
 
-        if(!isPermissions('brand_list')){
+        if (!isPermissions('brand_list')) {
             return response()->json([
                 'message' => 'You do not have permission to view the brand list.'
             ], 403);
         }
 
-        $brand = Brand::with('createdBy')->where('id',$id)->get();
+        $brand = Brand::with('createdBy')->where('id', $id)->get();
         return response()->json($brand);
     }
-
-
     /*
     |--------------------------------------------------------------------------
     | Edit brand
@@ -249,7 +248,6 @@ class AjaxController extends Controller
                 if ($brand->logo) {
                     deleteImage($brand->logo);
                 }
-
             } else {
                 $logoName = $brand->logo;
             }
@@ -292,7 +290,6 @@ class AjaxController extends Controller
             return response()->json(false);
         }
     }
-
     /*
     |--------------------------------------------------------------------------
     | check user email existing
@@ -412,9 +409,28 @@ class AjaxController extends Controller
 
     //|--------------------------------------------------------------------------
     //| Chandima Start
-    //|--------------------------------------------------------------------------
+    //|-------------------------------------------------------------------------- 
+    /*
+    |--------------------------------------------------------------------------
+    | get user List
+    |--------------------------------------------------------------------------
+    |
+    */
+    public function getUserRoleList()
+    {
 
+        if (!isPermissions('user_role_list')) {
+            return response()->json([
+                'message' => 'You do not have permission to view the user role list.'
+            ], 403);
+        }
 
+        $userRoles = UserModel::selectRaw('user_roles.*, a.name as createdBy, b.name as updatedBy')
+            ->leftJoin('users as a', 'a.id', 'user_roles.created_by')
+            ->leftJoin('users as b', 'b.id', 'user_roles.updated_by')
+            ->get();
+        return response()->json(['userRoles' => $userRoles]);
+    }
     //|--------------------------------------------------------------------------
     //| Chandima End
     //|--------------------------------------------------------------------------

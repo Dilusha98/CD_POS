@@ -33,8 +33,6 @@ class DataController extends Controller
             return $e;
         }
     }
-
-
     /*
     |--------------------------------------------------------------------------
     | get Brands
@@ -82,11 +80,29 @@ class DataController extends Controller
 
 
 
-
     //|--------------------------------------------------------------------------
     //| Chandima Start
     //|--------------------------------------------------------------------------
+    /*
+    |--------------------------------------------------------------------------
+    | get user role for edit
+    |--------------------------------------------------------------------------
+    |
+    */
+    public function getUserRoleForEdit($userRoleId)
+    {
+        try {
+            $data = UserModel::selectRaw('user_roles.id, user_roles.*')
+                ->with(['getPermissions'])
+                ->where('user_roles.id', $userRoleId)
+                ->first();
 
+            return $data;
+        } catch (Exception $e) {
+            dd($e);
+            return $e;
+        }
+    }
     //|--------------------------------------------------------------------------
     //| Chandima End
     //|--------------------------------------------------------------------------

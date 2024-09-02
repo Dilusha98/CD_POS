@@ -67,6 +67,8 @@ return [
     'create-user-js'                 =>"/customjs/create_user.js?v=".$version,
     'user-list-js'                 =>"/customjs/user_list.js?v=".$version,
     'user-edit-js'                 =>"/customjs/edit_user.js?v=".$version,
+    'user-role-list-js'                 =>"/customjs/user_role_list.js?v=".$version,
+    'user-role-edit-js'                 =>"/customjs/edit_user_role.js?v=".$version,
 
 
 

@@ -31,9 +31,10 @@
             <h3 class="card-title">Basic Info</span></h3>
         </div>
 
-        <!-- /.card-header -->
-        <div class="card-body">
-            <form id="userEditForm" enctype="multipart/form-data">
+        <form id="userEditForm" action="/UpdateUser" method="POST" enctype="multipart/form-data">
+            @csrf
+            <!-- /.card-header -->
+            <div class="card-body">
                 <div class="form-group">
                     <input hidden type="text" class="form-control form-control-sm" id="userId" name="userId" value="{{ $editData[0]['id'] }}">
                 </div>
@@ -133,13 +134,13 @@
 
                     </div>
                 </div>
-            </form>
-        </div>
+            </div>
 
-        {{-- Card Footer --}}
-        <div class="card-footer text-right">
-            <button type="submit" form="userEditForm" id="userSbmitBtn" name="userSbmitBtn" class="btn btn-primary">Submit</button>
-        </div>
+            {{-- Card Footer --}}
+            <div class="card-footer text-right">
+                <button type="submit" id="userUpdateSbmitBtn" name="userUpdateSbmitBtn" class="btn btn-primary">Submit</button>
+            </div>
+        </form>
     </div>
 </div>
 <!-- /.container -->
@@ -158,6 +159,14 @@
     $(".switchery-demo").html(
             `<input type="checkbox" id='stschk${userId}' onchange="changeState(${userId})" name="stschk" value=""  data-switchery="true" data-plugin="switchery" class="js-switchery stschk" />  `
     );
+
+
+    //set edit data
+    if(editData[0].status === 1){
+        $("#stus").val("1");
+    }else{
+        $("#stus").val("0");
+    }
 
     //set stasus
     editData[0].status === 1

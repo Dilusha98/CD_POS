@@ -64,8 +64,6 @@ class viewController extends DataController
 
         return View::make('dashboard', $data);
     }
-
-
     /*
     |--------------------------------------------------------------------------
     | Public Function Dashboard
@@ -81,8 +79,6 @@ class viewController extends DataController
 
         return $this->default($data);
     }
-
-
     /*
     |--------------------------------------------------------------------------
     | Public Function Brand
@@ -164,8 +160,6 @@ class viewController extends DataController
     public function userEdit(Request $request)
     {
         $userId = tokenDecode($request->query('token'));
-        
-
 
         $data = array(
             'title'                 => 'User Edit',
@@ -173,6 +167,44 @@ class viewController extends DataController
             'script'                => array(config('site-specific.user-edit-js')),
             'userRoleData'           => $this->getUserRole(),
             'editData'           => $this->getUserForEdit($userId),
+        );
+
+        return $this->default($data);
+    }
+    /*
+    |--------------------------------------------------------------------------
+    | Public Function User Role List
+    |--------------------------------------------------------------------------
+    |
+    */
+    public function userRoleList()
+    {
+
+        $data = array(
+            'title'                 => 'User Role List',
+            'view'                  => 'user_role/user_role_list',
+            'script'                => array(config('site-specific.user-role-list-js')),
+            //'userRoleData'           => $this->getUserRole(),
+        );
+
+        return $this->default($data);
+    }
+    /*
+    |--------------------------------------------------------------------------
+    | Public Function Edit User Role
+    |--------------------------------------------------------------------------
+    |
+    */
+    public function userRoleEdit(Request $request)
+    {
+        $userRoleId = tokenDecode($request->query('token'));
+
+        $data = array(
+            'title'                 => 'User Role Edit',
+            'view'                  => 'user_role/user_role_edit',
+            'script'                => array(config('site-specific.user-role-edit-js')),
+            'groupedData'           => $this->getUserPermission(),
+            'editData'           => $this->getUserRoleForEdit($userRoleId),
         );
 
         //dd($data);

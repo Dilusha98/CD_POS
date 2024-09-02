@@ -3,12 +3,12 @@
     <div class="container-fluid">
         <div class="row mb-2">
         <div class="col-sm-6">
-            <h4 class="m-0">User List</h4>
+            <h4 class="m-0">User Role List</h4>
         </div><!-- /.col -->
         <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="#">User</a></li>
-            <li class="breadcrumb-item active">User List</li>
+            <li class="breadcrumb-item active">User Role List</li>
             </ol>
         </div><!-- /.col -->
         </div><!-- /.row -->
@@ -18,7 +18,7 @@
 
     <!-- /.style s-->
     <style>
-        #userListTable th {
+        #userRoleListTable th {
             text-align: center;
         }
         
@@ -54,18 +54,16 @@
             <div class="card-body">
                 <div class="row mt-2">
                     <div class="col-12 table-responsive">
-                        <table id="userListTable" class="table table-bordered table-striped table-sm">
+                        <table id="userRoleListTable" class="table table-bordered table-striped table-sm">
                             <thead>
                                 <tr>
-                                <th>First Name</th>
-                                <th>Last Name</th>
-                                <th>User Name</th>
-                                <th>User Role</th>
-                                <th>Phone Number</th>
-                                <th>Date of Birth</th>
-                                <th>Address</th>
-                                <th>Status</th>
-                                <th>Action</th>
+                                    <th>User Role</th>
+                                    <th>Created By</th>
+                                    <th>Updated By</th>
+                                    <th>Created At</th>
+                                    <th>Updated At</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>

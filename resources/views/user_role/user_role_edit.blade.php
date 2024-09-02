@@ -1,3 +1,6 @@
+{{-- css --}}
+<link href="{{ asset('plugins/mohithg-switchery/mohithg-switchery.min.css') }}" rel="stylesheet" type="text/css" />
+
 <!-- Content Header (Page header) -->
 <div class="content-header">
     <div class="container-fluid">
@@ -8,7 +11,7 @@
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="#">User</a></li>
-                    <li class="breadcrumb-item active">Create User Role</li>
+                    <li class="breadcrumb-item active">Edit User Role</li>
                 </ol>
             </div><!-- /.col -->
         </div><!-- /.row -->
@@ -21,23 +24,36 @@
 
 <!-- container -->
 <div class="container-fluid">
-    <form id="userRoleForm" enctype="multipart/form-data">
-
+    <form id="userRoleUpdateForm" action="/UpdateUserRole" method="POST" enctype="multipart/form-data">
+        @csrf
         {{-- user role --}}
         <div class="card card-primary card-outline">
+            <input hidden type="text" class="form-control form-control-sm" id="userRoleId" name="userRoleId" value="{{ $editData->id }}">
             <div class="card-header">
                 <h3 class="card-title">Basic Info</span></h3>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-6">
                         <div class="form-group">
                             <label for="role_name">Role Name</label>
                             <input type="text" class="form-control form-control-sm" id="roleName" name="roleName"
-                                placeholder="Enter role name" maxlength="45">
+                                placeholder="Enter role name" maxlength="45" value="{{ $editData->title }}">
                             <small id="charCount" class="form-text text-muted">45 characters left</small>
                             <span class="text-danger" id="roleNameError"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-1"></div>
+
+                    <div class="col-5">
+                        {{-- user status --}}
+                        <div class="form-group">
+                            <label for="userStatus">User Role Status</label>
+                            <div class="switchery-demo">
+                            </div>
+                            <input hidden class="form-control form-control-sm" type="text" id="stus" name="stus" value="">     
                         </div>
                     </div>
                 </div>
@@ -46,8 +62,7 @@
 
         {{-- tabs --}}
         <div class="card card-primary card-outline card-outline-tabs">
-            <input hidden type="text" class="form-control form-control-sm" id="userRoleId" name="userRoleId" value="0">
-            
+
             {{-- tabs --}}
             <div class="card-header p-0 border-bottom-0">
                 <ul class="nav nav-tabs" id="custom-tabs-four-tab" role="tablist">
@@ -73,10 +88,22 @@
                         <div class="tab-pane fade {{ $loop->first ? 'show active' : '' }}"
                              id="custom-tabs-{{ $key }}" role="tabpanel"
                              aria-labelledby="custom-tabs-{{ $key }}-tab">
+
+                            @php
+                                // Check if all permissions in this group are selected
+                                $allChecked = true;
+                                foreach ($permissions as $permission) {
+                                    if (!in_array($permission['uPerissnId'], $editData->getPermissions->pluck('permission')->toArray())) {
+                                        $allChecked = false;
+                                        break;
+                                    }
+                                }
+                            @endphp
+
                             <!-- Select All Checkbox -->
                             <label>
                                 <input type="checkbox" class="select-all"
-                                       data-target="custom-tabs-{{ $key }}">
+                                       data-target="custom-tabs-{{ $key }}" {{ $allChecked ? 'checked' : '' }}>
                                 <span style="margin-left: 8px;">Select All</span>
                             </label>
             
@@ -97,7 +124,8 @@
                                                         <label>
                                                             <input type="checkbox" name="permissions[]"
                                                                    id="{{ $permissions[$j]['uPerissnId'] }}"
-                                                                   value="{{ $permissions[$j]['uPerissnId'] }}">
+                                                                   value="{{ $permissions[$j]['uPerissnId'] }}"
+                                                                   {{ in_array($permissions[$j]['uPerissnId'], $editData->getPermissions->pluck('permission')->toArray()) ? 'checked' : '' }}>
                                                             <span style="margin-left: 8px; font-weight: normal;">{{ $permissions[$j]['displayTxt'] }}</span>
                                                         </label>
                                                     </li>
@@ -114,12 +142,53 @@
 
             {{-- Card Footer --}}
             <div class="card-footer text-right">
-                <button type="submit" form="userRoleForm" id="userRoleSbmitBtn" name="userRoleSbmitBtn" class="btn btn-primary">Submit</button>
+                <button type="submit" id="userRoleUpdateBtn" name="userRoleUpdateBtn" class="btn btn-primary">Submit</button>
             </div>
         </div>
     </form>
 </div>
 <!-- /.container -->
+
+{{-- plug script --}}
+<script src="{{ asset('plugins/mohithg-switchery/mohithg-switchery.min.js') }}"></script>
+<script type="text/javascript">
+   
+    //get edit data
+    var editData = JSON.parse('@json($editData)');
+    console.log(editData);
+    var userRoleId = editData.id;
+
+    //set ststus element
+    $(".switchery-demo").html(
+            `<input type="checkbox" id='stschk${userRoleId}' onchange="changeState(${userRoleId})" name="stschk" value=""  data-switchery="true" data-plugin="switchery" class="js-switchery stschk" />  `
+    );
+
+
+    //set edit data
+    if(editData.status === 1){
+        $("#stus").val("1");
+    }else{
+        $("#stus").val("0");
+    }
+
+    //set stasus
+    editData.status === 1
+            ? $("#stschk" + userRoleId).attr("checked", true)
+            : $("#stschk" + userRoleId).removeAttr("checked");
+        var elem = document.querySelector("#stschk" + userRoleId);
+        new Switchery(elem, { secondaryColor: "#dc3545", size: "small" });
+
+
+
+    //state change function when onchange toggle
+    function changeState(event) {
+        if ($(`#stschk${event}`).is(":checked")) {
+            $("#stus").val("1");
+        } else {
+            $("#stus").val("0");
+        }
+    }
+</script>
 
 
 

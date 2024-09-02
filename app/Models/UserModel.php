@@ -12,4 +12,10 @@ class UserModel extends Model
     protected $table = 'user_roles';
     protected $primaryKey = 'id';
     public $timestamps = true;
+
+
+    function getPermissions()
+    {
+        return $this->hasMany(SavePermissionModel::class, 'user_role', 'id')->selectRaw('save_permissions.user_role, save_permissions.permission');
+    }
 }
