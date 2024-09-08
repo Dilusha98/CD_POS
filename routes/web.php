@@ -27,6 +27,8 @@ Route::middleware(['auth', 'check_permissions'])->group(function () {
     |--------------------------------------------------------------------------
     |
     */
+    Route::get('/pos', [viewController::class, 'PosView'])->name('accesspos');
+
     Route::get('/dashboard', [viewController::class, 'index'])->name('dashboard');
     Route::get('/brand', [viewController::class, 'brand'])->name('brand_list');
     //user role view

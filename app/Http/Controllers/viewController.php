@@ -17,7 +17,7 @@ class viewController extends DataController
     |--------------------------------------------------------------------------
     |
     */
-    public function default($data)
+    public function default($data,$pos=false)
     {
 
         // Defalut css
@@ -62,6 +62,9 @@ class viewController extends DataController
             $data['script'] = $script;
         }
 
+        if ($pos) {
+            return View::make('pos/posLayout', $data);
+        }
         return View::make('dashboard', $data);
     }
     /*
@@ -79,6 +82,25 @@ class viewController extends DataController
 
         return $this->default($data);
     }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Public Function POS View
+    |--------------------------------------------------------------------------
+    |
+    */
+    public function PosView()
+    {
+        $data = array(
+            'title'                 => 'Poin of Sales',
+            'view'                  => 'pos/pos',
+        );
+
+        $pos =true;
+
+        return $this->default($data,$pos);
+    }
+
     /*
     |--------------------------------------------------------------------------
     | Public Function Brand

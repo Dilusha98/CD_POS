@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use DateTime;
 use Exception;
 use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\Log;
 
 //models
 use App\Models\UserPermissionModel;
@@ -18,6 +19,16 @@ use App\Models\category;
 
 class DataController extends Controller
 {
+
+    /*
+    |--------------------------------------------------------------------------
+    | Private function / create Log InfoFile
+    |--------------------------------------------------------------------------
+    */
+    private function createLogInfoFile($status,$message){
+        Log::info('success : '.$status.', message : '.$message);
+    }
+
     /*
     |--------------------------------------------------------------------------
     | user Permissions
@@ -115,7 +126,6 @@ class DataController extends Controller
 
             return $data;
         } catch (Exception $e) {
-            dd($e);
             return $e;
         }
     }

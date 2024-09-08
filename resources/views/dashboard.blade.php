@@ -236,7 +236,22 @@
                     'create_user',
                     'edit_user',
                 );
+
+                $pos_permissions = array(
+                    'accesspos',
+                );
            ?>
+
+           @if (!empty(array_intersect( $permission_titles, $pos_permissions)))
+
+           <li class="nav-item">
+            <a href="/pos" class="nav-link">
+              <i class="nav-icon fas fa-cash-register"></i>
+              <p>POS</p>
+            </a>
+          </li>
+
+           @endif
 
             @if (!empty(array_intersect( $permission_titles, $product_permissions)))
                 <li class="nav-item">

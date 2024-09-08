@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\UpdateUserRequest;
 use App\Http\Requests\UserRoleRequest;
+use Illuminate\Support\Facades\Log;
 
 //models
 use App\Models\UserModel;
@@ -21,6 +22,16 @@ use App\Models\User;
 
 class ActionController extends Controller
 {
+
+    /*
+    |--------------------------------------------------------------------------
+    | Private function / create Log InfoFile
+    |--------------------------------------------------------------------------
+    */
+    private function createLogInfoFile($status,$message){
+        Log::info('success : '.$status.', message : '.$message);
+    }
+
     //|--------------------------------------------------------------------------
     //| Dilusha Start
     //|--------------------------------------------------------------------------
