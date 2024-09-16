@@ -62,14 +62,15 @@ return [
     'switchery-js'                  => "https://cdnjs.cloudflare.com/ajax/libs/switchery/0.8.2/switchery.min.js",
 
     // Custom js example
-    'create-user-role-js'            =>"/customjs/user_role_create.js?v=".$version,
-    'brand-js'                       =>"/customjs/brand.js?v=".$version,
-    'create-user-js'                 =>"/customjs/create_user.js?v=".$version,
+    'create-user-role-js'          =>"/customjs/user_role_create.js?v=".$version,
+    'brand-js'                     =>"/customjs/brand.js?v=".$version,
+    'create-user-js'               =>"/customjs/create_user.js?v=".$version,
     'user-list-js'                 =>"/customjs/user_list.js?v=".$version,
     'user-edit-js'                 =>"/customjs/edit_user.js?v=".$version,
-    'user-role-list-js'                 =>"/customjs/user_role_list.js?v=".$version,
-    'user-role-edit-js'                 =>"/customjs/edit_user_role.js?v=".$version,
-    'category-js'                    =>"/customjs/category.js?v=".$version,
+    'user-role-list-js'            =>"/customjs/user_role_list.js?v=".$version,
+    'user-role-edit-js'            =>"/customjs/edit_user_role.js?v=".$version,
+    'category-js'                  =>"/customjs/category.js?v=".$version,
+    'product-attributes-js'        =>"/customjs/product_attributes.js?v=".$version,
 
 
 
