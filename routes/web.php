@@ -38,6 +38,8 @@ Route::middleware(['auth', 'check_permissions'])->group(function () {
     Route::get('/UserList', [viewController::class, 'userList'])->name('user_list');
     Route::get('/UserEdit', [viewController::class, 'userEdit'])->name('user_edit');
     Route::get('/categories', [viewController::class, 'categories'])->name('category_list');
+    // product attributes
+    Route::get('/add-product-attributes', [viewController::class, 'addProductAttributes'])->name('add_product_attributes');
 
 
 
@@ -61,6 +63,7 @@ Route::middleware(['auth', 'check_permissions'])->group(function () {
     |--------------------------------------------------------------------------
     |
     */
+
 });
 
 
@@ -88,6 +91,16 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/get-category-details/{id}', [AjaxController::class, 'getCategory'])->name('get_category');
     Route::get('/get-category-data',         [AjaxController::class,'CategoryList'])->name('get_category_list');
     Route::delete('/delete-category/{id}',      [AjaxController::class,'CategoryDelete'])->name('delete_category');
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Action Routes
+    |--------------------------------------------------------------------------
+    |
+    */
+    Route::post('/save-attributes',      [ActionController::class,'saveAttributes'])->name('saveAttributes');
+
 });
 
 

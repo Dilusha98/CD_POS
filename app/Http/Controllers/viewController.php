@@ -251,4 +251,23 @@ class viewController extends DataController
 
         return $this->default($data);
     }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Public Function add product attributes
+    |--------------------------------------------------------------------------
+    |
+    */
+    public function addProductAttributes(Request $request)
+    {
+        $data = array(
+            'title'                 => 'Product Attributes',
+            'view'                  => 'product/addProductAttributes',
+            'script'                => array(config('site-specific.product-attributes-js')),
+            'categories'            => $this->getCategories(),
+        );
+
+        return $this->default($data);
+    }
 }

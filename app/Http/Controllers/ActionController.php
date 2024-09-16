@@ -14,11 +14,16 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Requests\UpdateUserRequest;
 use App\Http\Requests\UserRoleRequest;
 use Illuminate\Support\Facades\Log;
+use Validator;
+use Auth;
 
 //models
 use App\Models\UserModel;
 use App\Models\SavePermissionModel;
 use App\Models\User;
+use App\Models\ProductAttributeValueMap;
+use App\Models\ProductAttribute;
+
 
 class ActionController extends Controller
 {
@@ -35,6 +40,63 @@ class ActionController extends Controller
     //|--------------------------------------------------------------------------
     //| Dilusha Start
     //|--------------------------------------------------------------------------
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Save Product Attributes
+    |--------------------------------------------------------------------------
+    |
+    */
+    public function saveAttributes(Request $request)
+    {
+        try {
+
+            if (!isPermissions('add_product_attributes')) {
+                return Redirect()->back()->with('error','You do not have permission to view the create attributes.');
+            }
+
+            $validation_array = [
+                'attribute_name' => 'required|string|max:152',
+                'attribute_slug' => 'required|string|max:152',
+            ];
+
+            $validator = Validator::make($request->all(), $validation_array);
+
+            if($validator->fails()){
+                return redirect()->back()->with('error', implode(" / ",$validator->messages()->all()));
+            }
+
+            DB::beginTransaction();
+
+            $attribute = ProductAttribute::create([
+                'name' => $request->attribute_name,
+                'slug' => $request->attribute_slug,
+                'created_by'=>Auth::id(),
+            ]);
+
+            if(!$attribute){
+                return Redirect()->back()->with('error','Something Went Wrong,Try Again Later!');
+            }
+
+
+            foreach ($request->values as $index => $value) {
+                ProductAttributeValueMap::create([
+                    'product_attribute_id' => $attribute->id,
+                    'value' => $value,
+                    'slug' => $request->value_slugs[$index],
+                ]);
+            }
+
+            DB::commit();
+            return redirect()->back()->with('success', 'Product attribute and values saved successfully.');
+
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return Redirect()->back()->with(['success' => false, 'message' => 'An error occurred while creating the attriutes. Please try again later.!']);
+        }
+    }
+
 
     //|--------------------------------------------------------------------------
     //| Dilusha End

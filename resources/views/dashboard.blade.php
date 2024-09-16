@@ -36,6 +36,78 @@
         <script src="{{ $path }}"></script>
     @endforeach
 
+    <style>
+        .error {
+            color: #dc3545;
+            font-size: 0.875em;
+            margin-top: 0.25rem;
+        }
+
+        .btn-primary {
+            background-color: #3F51B5 !important;
+            border-color: #3F51B5 !important;
+            border-radius: 0 !important;
+            color: white !important;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: #2C3D99 !important;
+            border-color: #2C3D99 !important;
+            color: white !important;
+        }
+
+        .btn-primary:active, .btn-primary:focus {
+            background-color: #1F2C6D !important;
+            border-color: #1F2C6D !important;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 2px 8px;
+            font-size: 12px;
+            font-weight: 600;
+            line-height: 1;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: middle;
+            border-radius: 12px;
+        }
+
+        /* Warning badge */
+        .badge-warning {
+            background-color: #FFCC80;
+            color: #8C5100;
+            border: 1px solid #FFB74D;
+        }
+
+        .badge-warning:hover {
+            background-color: #FFB74D;
+        }
+
+        /* Success badge */
+        .badge-success {
+            background-color: #A5D6A7;
+            color: #2E7D32;
+            border: 1px solid #81C784;
+        }
+
+        .badge-success:hover {
+            background-color: #81C784;
+        }
+
+        /* Danger badge */
+        .badge-danger {
+            background-color: #EF9A9A;
+            color: #C62828;
+            border: 1px solid #E57373;
+        }
+
+        .badge-danger:hover {
+            background-color: #E57373;
+        }
+    </style>
+
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -225,7 +297,9 @@
                 $product_permissions = array(
                     'brand_list',
                     'category_list',
-                    'category_list'
+                    'category_list',
+                    'add_new_product',
+                    'add_product_attributes',
                 );
 
                 $user_permissions = array(
@@ -263,6 +337,22 @@
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
+                        @if (in_array('add_new_product',$permission_titles))
+                            <li class="nav-item">
+                                <a href="/add-new-product" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Add Product</p>
+                                </a>
+                        </li>
+                        @endif
+                        @if (in_array('add_product_attributes',$permission_titles))
+                            <li class="nav-item">
+                                <a href="/add-product-attributes" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Product Attributes</p>
+                                </a>
+                        </li>
+                        @endif
                         @if (in_array('category_list',$permission_titles))
                             <li class="nav-item">
                                 <a href="/categories" class="nav-link">
