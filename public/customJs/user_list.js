@@ -23,7 +23,7 @@ $(function () {
             searchPlaceholder: "Search records..."
         },
         initComplete: function(settings, json) {
-            $('#userListTable thead th').css({
+            /*$('#userListTable thead th').css({
                 'height': '30px',
                 'line-height': '30px',
                 'padding-top': '0',
@@ -44,7 +44,7 @@ $(function () {
                 'display': 'inline-block'
             });
             
-            $('.dt-buttons .btn').css('margin-right', '5px');
+            $('.dt-buttons .btn').css('margin-right', '5px');*/
         }
     });
 

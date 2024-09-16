@@ -78,14 +78,9 @@ $(function () {
                     processData: false,
                     contentType: false,
                     success: function(response) {
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'User  Role Added',
-                            text: 'The user role has been successfully added!',
-                            confirmButtonText: 'OK'
-                        });
-                        form.reset();
+                        handleResponse(response);
 
+                        form.reset();
                         formClear();
                     },
                     error: function(response) {

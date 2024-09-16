@@ -45,6 +45,77 @@
             line-height: 1.5;
             border-radius: 0.2rem;
         }
+
+
+
+
+        .dropdown .btn.dropdown-toggle {
+            background-color: #007bff;
+            border-color: #007bff;
+            color: white;
+            padding: 5px 10px;
+            font-size: 12px;
+        }
+
+        .dropdown .btn.dropdown-toggle.btn-xs {
+            padding: 3px 8px;
+            font-size: 10px;
+            border-radius: 4px;
+        }
+
+        .dropdown-menu {
+            min-width: 120px;
+            padding: 0;
+            border-radius: 4px;
+            border: none;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .dropdown-item {
+            padding: 10px 15px;
+            font-size: 13px;
+            transition: background-color 0.3s, color 0.3s;
+            cursor: pointer;
+        }
+
+        .dropdown-item:hover {
+            background-color: #cacaca;
+            color: white;
+        }
+
+        .dropdown-item + .dropdown-item {
+            border-top: 1px solid #e9ecef;
+        }
+
+
+
+        /* Styling the table header */
+        #userListTable thead th {
+            height: 25px;
+            line-height: 30px;
+            padding-top: 0;
+            padding-bottom: 0;
+            background-color: #4a5568;
+            color: white;
+            font-weight: bold;
+            font-size: 80%;
+            text-transform: uppercase;
+        }
+
+        .dataTables_wrapper .row:first-child {
+            background-color: white;
+            padding: 10px 0;
+        }
+
+        .dataTables_filter input[type="search"] {
+            width: 250px;
+            display: inline-block;
+        }
+
+        .dt-buttons .btn {
+            margin-right: 5px;
+        }
+
     </style>
     <!-- /.style e -->
 

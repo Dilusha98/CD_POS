@@ -35,8 +35,9 @@ class AjaxController extends Controller
     | Private function / create Log InfoFile
     |--------------------------------------------------------------------------
     */
-    private function createLogInfoFile($status,$message){
-        Log::info('success : '.$status.', message : '.$message);
+    private function createLogInfoFile($status, $message)
+    {
+        Log::info('success : ' . $status . ', message : ' . $message);
     }
 
     /*
@@ -124,16 +125,19 @@ class AjaxController extends Controller
             return response()->json([
                 'success' => true,
                 'message' => 'User role has been successfully added!',
-                'user_role' => $UserModel
+                'title' => 'Create User Role',
+                'user_role' => $UserModel,
+                'errorId' => null,
             ]);
         } catch (Exception $e) {
             DB::rollBack();
-
+            $errorId = logError($e, $request, 'user_management');
             return response()->json([
                 'success' => false,
-                'message' => 'An error occurred while adding the brand. Please try again later.',
-                'error' => $e->getMessage(),
-            ], 500);
+                'message' => 'An error occurred while adding the user role. Please try again later.',
+                'title' => 'Error',
+                'errorId' => $errorId,
+            ]);
         }
     }
     /*
@@ -460,15 +464,16 @@ class AjaxController extends Controller
     |--------------------------------------------------------------------------
     |
     */
-    protected function getCategory($id){
+    protected function getCategory($id)
+    {
 
-        if(!isPermissions('user_role_edit')){
+        if (!isPermissions('user_role_edit')) {
             return response()->json([
                 'message' => 'You do not have permission to view the Category.'
             ], 403);
         }
 
-        $category = category::with('createdBy')->where('id',$id)->get();
+        $category = category::with('createdBy')->where('id', $id)->get();
         return response()->json($category);
     }
 
@@ -494,7 +499,6 @@ class AjaxController extends Controller
                 if ($category->image) {
                     deleteImage($category->image);
                 }
-
             } else {
                 $logoName = $category->image;
             }
@@ -561,7 +565,6 @@ class AjaxController extends Controller
                 'success' => true,
                 'message' => 'Category deleted successfully.',
             ], 200);
-
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
@@ -588,7 +591,6 @@ class AjaxController extends Controller
                 'success' => true,
                 'message' => 'Brand deleted successfully.',
             ], 200);
-
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,

@@ -25,8 +25,9 @@ class DataController extends Controller
     | Private function / create Log InfoFile
     |--------------------------------------------------------------------------
     */
-    private function createLogInfoFile($status,$message){
-        Log::info('success : '.$status.', message : '.$message);
+    private function createLogInfoFile($status, $message)
+    {
+        Log::info('success : ' . $status . ', message : ' . $message);
     }
 
     /*
@@ -37,13 +38,9 @@ class DataController extends Controller
     */
     protected function getUserPermission()
     {
-        try {
-            $data = UserPermissionModel::getUserPermissions();
-            $groupedData = $data->groupBy('type')->toArray();
-            return $groupedData;
-        } catch (Exception $e) {
-            return $e;
-        }
+        $data = UserPermissionModel::getUserPermissions();
+        $groupedData = $data->groupBy('type')->toArray();
+        return $groupedData;
     }
     /*
     |--------------------------------------------------------------------------
@@ -65,12 +62,8 @@ class DataController extends Controller
     */
     public function getUserRole()
     {
-        try {
-            $data = UserModel::where('status', 1)->get();
-            return $data;
-        } catch (Exception $e) {
-            return $e;
-        }
+        $data = UserModel::where('status', 1)->get();
+        return $data;
     }
 
     /*
@@ -81,12 +74,8 @@ class DataController extends Controller
     */
     public function getUserForEdit($userId)
     {
-        try {
-            $data = User::where('id', $userId)->get();
-            return $data;
-        } catch (Exception $e) {
-            return $e;
-        }
+        $data = User::where('id', $userId)->get();
+        return $data;
     }
 
 
@@ -96,13 +85,10 @@ class DataController extends Controller
     |--------------------------------------------------------------------------
     |
     */
-    public function getCategories(){
-        try {
-            $data = category::with('createdBy')->get();
-            return $data;
-        } catch (Exception $e) {
-            return $e;
-        }
+    public function getCategories()
+    {
+        $data = category::with('createdBy')->get();
+        return $data;
     }
 
 
@@ -118,16 +104,12 @@ class DataController extends Controller
     */
     public function getUserRoleForEdit($userRoleId)
     {
-        try {
-            $data = UserModel::selectRaw('user_roles.id, user_roles.*')
-                ->with(['getPermissions'])
-                ->where('user_roles.id', $userRoleId)
-                ->first();
+        $data = UserModel::selectRaw('user_roles.id, user_roles.*')
+            ->with(['getPermissions'])
+            ->where('user_roles.id', $userRoleId)
+            ->first();
 
-            return $data;
-        } catch (Exception $e) {
-            return $e;
-        }
+        return $data;
     }
     //|--------------------------------------------------------------------------
     //| Chandima End

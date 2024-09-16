@@ -413,16 +413,18 @@
     @endif
 
     <script>
-        function showAlert(title,msg,type) {
+     
+        /*function showAlert(title,message,type) {
+          console.log(title,message,type);
             Swal.fire({
             title: title,
-            text: msg,
+            text: message,
             icon: type,
             confirmButtonColor: '#3085d6',
             confirmButtonText: 'Ok'
             })
-        }
-
+        }*/
+        
 
         $(document).ready(function() {
             var url = window.location;
@@ -440,6 +442,39 @@
                 }
             }).parentsUntil(".nav-sidebar > .nav-treeview").addClass('menu-open').prev('a').addClass('active');
         });
+
+
+
+        function showAlert(title, message, type, errorId = null) {
+            let alertConfig = {
+                title: title,
+                text: message,
+                icon: type,
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'Ok'
+            };
+
+            if (errorId) {
+                alertConfig.footer = `<p>Error Code (ID: ${errorId})</p>`;
+            }
+
+            Swal.fire(alertConfig);
+        }
+
+        function reportError(errorId) {
+            console.log('Reporting error:', errorId);
+            // Implement your error reporting logic here
+            // For example, you could open a new window with a pre-filled error report form
+            window.open(`/report-error?id=${errorId}`, '_blank');
+        }
+
+        function handleResponse(response) {
+          if (response.success) {
+              showAlert(response.title, response.message, 'success', response.errorId);
+          } else {
+              showAlert(response.title, response.message, 'error', response.errorId);
+          }
+      }
 
     </script>
 </body>

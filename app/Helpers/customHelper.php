@@ -8,6 +8,8 @@ use Intervention\Image\ImageManager as ImageManager;
 use Intervention\Image\Drivers\GD\Driver as Driver;
 
 use App\Models\SavePermissionModel;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 
 
 function isPermissions($permission)
@@ -78,4 +80,37 @@ function deleteImage($imagePath)
     }
 
     return false;
+}
+
+
+
+
+if (!function_exists('logError')) {
+    /**
+     * Log an error with a unique identifier and detailed information.
+     *
+     * @param \Throwable $exception The caught exception
+     * @param \Illuminate\Http\Request $request The current request
+     * @param string $module The module or context where the error occurred
+     * @return string The unique error identifier
+     */
+    function logError(\Throwable $exception, $request, $module = null)
+    {
+        $errorId = random_int(100000, 999999);
+        $dateTime = now()->format('Y-m-d H:i:s');
+
+        $logData = [
+            'error_id' => $errorId,
+            'error_massage' =>  $exception->getMessage() . PHP_EOL,
+                'file_name' => $exception->getFile() . PHP_EOL,
+                'line_number' => $exception->getLine() . PHP_EOL,
+                'route_path' => $request->path() . PHP_EOL,
+                'date_time' => $dateTime . PHP_EOL,
+                'logged_info' => ['company_code' => session('cmco'), 'user_id' => auth()->user()->id, 'user_name' => auth()->user()->name],
+        ];
+
+        Log::channel($module)->error("Error ID: {$errorId}", $logData);
+
+        return $errorId;
+    }
 }
